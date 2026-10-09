@@ -6,132 +6,80 @@ import {
   createTheme, 
   CssBaseline,
   Box,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Typography,
-  Avatar,
-  Stack
+  Stack,
+  IconButton
 } from '@mui/material';
-import DiamondIcon from '@mui/icons-material/Diamond';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import StorageIcon from '@mui/icons-material/Storage';
-import TuneIcon from '@mui/icons-material/Tune';
-import EditIcon from '@mui/icons-material/Edit';
-import AssessmentIcon from '@mui/icons-material/Assessment';
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+import StorageRoundedIcon from '@mui/icons-material/StorageRounded';
+import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
+import DrawRoundedIcon from '@mui/icons-material/DrawRounded';
+import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded';
+import WifiRoundedIcon from '@mui/icons-material/WifiRounded';
+import SignalCellular4BarRoundedIcon from '@mui/icons-material/SignalCellular4BarRounded';
+import BatteryFullRoundedIcon from '@mui/icons-material/BatteryFullRounded';
+import PlayCircleFilledWhiteRoundedIcon from '@mui/icons-material/PlayCircleFilledWhiteRounded';
 import { usePathname, useRouter } from 'next/navigation';
 
-// Theme chuẩn M3 Expressive (Mô phỏng chính xác tông màu Soft Rose/Pink từ ảnh)
-const m3ExpressiveTheme = createTheme({
+// Theme Android 16 Expressive (Dynamic Tonal Mesh)
+const android16Theme = createTheme({
   cssVariables: true,
   palette: {
     primary: {
-      main: '#984061', // Đỏ đô/Hồng đậm
-      light: '#FFD9E2', // Hồng nhạt (Pill background)
-      dark: '#3E001D',
+      main: '#386A20',       // Android 16 Sage Green Primary
+      light: '#B7F397',      // Primary Container (Gạch active)
+      dark: '#042100',       // On Primary Container
       contrastText: '#FFFFFF',
     },
     secondary: {
-      main: '#74565F',
-      light: '#FFD9E2',
-      dark: '#2B151C',
+      main: '#55624C',
+      light: '#D9E7CB',      // Secondary Container
+      dark: '#131F0D',
       contrastText: '#FFFFFF',
     },
     background: {
-      default: '#FFF0F5', // Nền tổng thể màu hồng pastel nhạt
-      paper: '#FFFFFF',   // Nền thẻ màu trắng
+      default: '#F5F5ED',    // Android 16 Wallpaper Tint
+      paper: 'rgba(255, 255, 255, 0.72)', // Frosted glass surface
     },
     text: {
-      primary: '#201A1B',
-      secondary: '#504347',
+      primary: '#191E13',
+      secondary: '#43483E',
     }
   },
   shape: {
-    borderRadius: 24, // Bo góc lớn đặc trưng của M3 Expressive
+    borderRadius: 28, // Chuẩn siêu bo tròn của Android 16
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Roboto", "Google Sans", "Helvetica", sans-serif',
     button: { textTransform: 'none', fontWeight: 600 },
-    h3: { fontWeight: 400, color: '#201A1B' },
-    h6: { fontWeight: 500 },
-    body2: { color: '#504347', lineHeight: 1.6 },
   },
   components: {
     MuiButton: {
-      defaultProps: { disableElevation: true },
       styleOverrides: {
         root: {
-          borderRadius: 100, // Nút tròn xoe dạng Pill
+          borderRadius: 100,
           padding: '12px 24px',
         }
       }
     },
-    MuiCard: {
+    MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: 24,
-          boxShadow: 'none', // Hoàn toàn không dùng bóng gắt
-        }
-      }
-    },
-    MuiAccordion: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#FFF0F5', // Giống màu Accordion trong ảnh
-          boxShadow: 'none',
-          '&:before': { display: 'none' }, // Bỏ gạch chân mặc định của MUI
-          borderRadius: '16px !important',
-          margin: '8px 0',
-        }
-      }
-    },
-    MuiListItemButton: {
-      styleOverrides: {
-        root: {
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '12px 0',
-          borderRadius: 16,
-        }
-      }
-    },
-    MuiListItemIcon: {
-      styleOverrides: {
-        root: {
-          minWidth: 'auto',
-          margin: '0 auto',
-          padding: '4px 16px',
-          borderRadius: 16,
-        }
-      }
-    },
-    MuiListItemText: {
-      styleOverrides: {
-        root: {
-          marginTop: 8,
-          marginBottom: 0,
-        },
-        primary: {
-          fontSize: '0.65rem',
-          fontWeight: 600,
-          textAlign: 'center',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 255, 255, 0.5)',
+          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.04)',
         }
       }
     }
   }
 });
 
-const NAV_WIDTH = 96;
-
-const ROUTES = [
-  { text: 'Featured', path: '/', icon: <DashboardIcon fontSize="small" /> },
-  { text: 'Data Lab', path: '/data-lab', icon: <StorageIcon fontSize="small" /> },
-  { text: 'Mining', path: '/active-mining', icon: <TuneIcon fontSize="small" /> },
-  { text: 'Studio', path: '/hitl-studio', icon: <EditIcon fontSize="small" /> },
-  { text: 'Reports', path: '/benchmark', icon: <AssessmentIcon fontSize="small" /> },
+const NAV_ITEMS = [
+  { label: 'Overview', path: '/', icon: <DashboardRoundedIcon /> },
+  { label: 'Data Lab', path: '/data-lab', icon: <StorageRoundedIcon /> },
+  { label: 'Mining', path: '/active-mining', icon: <TuneRoundedIcon /> },
+  { label: 'Studio', path: '/hitl-studio', icon: <DrawRoundedIcon /> },
+  { label: 'Metrics', path: '/benchmark', icon: <InsightsRoundedIcon /> },
 ];
 
 export default function M3Provider({ children }: { children: React.ReactNode }) {
@@ -139,72 +87,118 @@ export default function M3Provider({ children }: { children: React.ReactNode }) 
   const router = useRouter();
 
   return (
-    <ThemeProvider theme={m3ExpressiveTheme}>
+    <ThemeProvider theme={android16Theme}>
       <CssBaseline />
-      <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden', bgcolor: 'background.default', p: { xs: 0, md: 2 } }}>
+      <Box sx={{ 
+        minHeight: '100vh',
+        background: 'radial-gradient(circle at 10% 20%, #E8F5E9 0%, #F5F5ED 40%, #EFEBE9 90%)',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        pb: 12 // Chừa chỗ cho Floating Nav Dock
+      }}>
         
-        {/* Lớp bọc màu trắng cho giao diện chính giống trong hình (Tablet/Desktop view) */}
+        {/* Android 16 Top Status Bar + Rich Ongoing Notification Pill */}
         <Box sx={{ 
+          px: { xs: 2, md: 5 }, 
+          py: 2, 
           display: 'flex', 
-          width: '100%', 
-          bgcolor: 'background.paper', 
-          borderRadius: { xs: 0, md: 4 },
-          overflow: 'hidden',
-          boxShadow: { xs: 'none', md: '0px 10px 40px rgba(0,0,0,0.05)' }
+          justifyContent: 'space-between', 
+          alignItems: 'center' 
         }}>
-          
-          {/* Navigation Rail (Giống hệt ảnh bên trái màn hình phải) */}
-          <Box sx={{ 
-            width: NAV_WIDTH, 
-            flexShrink: 0, 
-            display: 'flex', 
-            flexDirection: 'column',
-            alignItems: 'center',
-            py: 3,
-            borderRight: '1px solid rgba(0,0,0,0.04)'
-          }}>
-            <DiamondIcon sx={{ color: '#984061', fontSize: 32, mb: 4 }} />
-            
-            <List sx={{ width: '100%', px: 1 }}>
-              {ROUTES.map((route) => {
-                const isActive = pathname === route.path;
-                return (
-                  <ListItem key={route.text} disablePadding sx={{ mb: 1 }}>
-                    <ListItemButton 
-                      onClick={() => router.push(route.path)}
-                      sx={{
-                        '&:hover': { bgcolor: 'transparent' }
-                      }}
-                    >
-                      <ListItemIcon sx={{ 
-                        bgcolor: isActive ? 'primary.light' : 'transparent',
-                        color: isActive ? 'primary.dark' : 'text.secondary',
-                        transition: 'background-color 0.2s',
-                        '& svg': { fontSize: '1.25rem' }
-                      }}>
-                        {route.icon}
-                      </ListItemIcon>
-                      <ListItemText 
-                        primary={route.text}
-                        sx={{
-                          '& .MuiListItemText-primary': {
-                            color: isActive ? 'primary.dark' : 'text.secondary',
-                            opacity: isActive ? 1 : 0.7
-                          }
-                        }}
-                      />
-                    </ListItemButton>
-                  </ListItem>
-                );
-              })}
-            </List>
+          {/* Giờ + Ngày */}
+          <Box>
+            <Typography variant="h6" sx={{ fontWeight: 700, letterSpacing: -0.5, lineHeight: 1 }}>
+              09:41
+            </Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+              Thứ sáu, 9 tháng 10
+            </Typography>
           </Box>
 
-          {/* Main Content Area */}
-          <Box component="main" sx={{ flexGrow: 1, p: { xs: 2, md: 4 }, overflowY: 'auto' }}>
-            {children}
+          {/* Android 16 Rich Ongoing Notification (Pill trạng thái động) */}
+          <Box sx={{ 
+            bgcolor: 'primary.light', 
+            color: 'primary.dark',
+            px: 2.5, 
+            py: 1, 
+            borderRadius: 100,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1.5,
+            boxShadow: '0 4px 16px rgba(56, 106, 32, 0.15)',
+            border: '1px solid rgba(255,255,255,0.6)'
+          }}>
+            <PlayCircleFilledWhiteRoundedIcon sx={{ fontSize: 20, color: 'primary.main' }} />
+            <Typography variant="body2" sx={{ fontWeight: 700, fontSize: '0.85rem' }}>
+              HITL Cycle #1 • 88.5% IoU Consensus
+            </Typography>
+            <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: 'primary.main' }} />
           </Box>
+
+          {/* Icons hệ thống Android 16 */}
+          <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+            <WifiRoundedIcon fontSize="small" sx={{ color: 'text.primary' }} />
+            <SignalCellular4BarRoundedIcon fontSize="small" sx={{ color: 'text.primary' }} />
+            <BatteryFullRoundedIcon fontSize="small" sx={{ color: 'text.primary' }} />
+          </Stack>
         </Box>
+
+        {/* Khung nội dung chính */}
+        <Box component="main" sx={{ flex: 1, px: { xs: 2, md: 5 }, py: 2 }}>
+          {children}
+        </Box>
+
+        {/* Android 16 Floating Gesture Navigation Dock (Thanh dock nổi ở đáy) */}
+        <Box sx={{ 
+          position: 'fixed', 
+          bottom: 24, 
+          left: '50%', 
+          transform: 'translateX(-50%)',
+          zIndex: 1000,
+          bgcolor: 'rgba(255, 255, 255, 0.85)',
+          backdropFilter: 'blur(30px)',
+          borderRadius: 100,
+          p: 1,
+          px: 2,
+          display: 'flex',
+          gap: 1,
+          boxShadow: '0 12px 40px rgba(0, 0, 0, 0.12)',
+          border: '1px solid rgba(255, 255, 255, 0.8)'
+        }}>
+          {NAV_ITEMS.map((item) => {
+            const isActive = pathname === item.path;
+            return (
+              <Box
+                key={item.path}
+                onClick={() => router.push(item.path)}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  px: isActive ? 2.5 : 1.5,
+                  py: 1,
+                  borderRadius: 100,
+                  bgcolor: isActive ? 'primary.light' : 'transparent',
+                  color: isActive ? 'primary.dark' : 'text.secondary',
+                  cursor: 'pointer',
+                  transition: 'all 0.25s cubic-bezier(0.2, 0, 0, 1)',
+                  '&:hover': {
+                    bgcolor: isActive ? 'primary.light' : 'rgba(0,0,0,0.04)'
+                  }
+                }}
+              >
+                {item.icon}
+                {isActive && (
+                  <Typography variant="body2" sx={{ fontWeight: 700, fontSize: '0.85rem' }}>
+                    {item.label}
+                  </Typography>
+                )}
+              </Box>
+            );
+          })}
+        </Box>
+
       </Box>
     </ThemeProvider>
   );

@@ -1,194 +1,310 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Box, 
   Typography, 
-  Button, 
-  Stack,
+  Paper, 
+  Grid, 
+  Stack, 
   IconButton,
-  Breadcrumbs,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Avatar,
-  AvatarGroup
+  Slider,
+  Switch
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
+import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
+import SpeedRoundedIcon from '@mui/icons-material/SpeedRounded';
+import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded';
+import FilterTiltShiftRoundedIcon from '@mui/icons-material/FilterTiltShiftRounded';
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
+import MemoryRoundedIcon from '@mui/icons-material/MemoryRounded';
 
-export default function OverviewDashboard() {
+export default function Android16Dashboard() {
+  const [activeMining, setActiveMining] = useState(true);
+  const [openVinoBoost, setOpenVinoBoost] = useState(true);
+  const [uncertaintyWeight, setUncertaintyWeight] = useState(75);
+
   return (
-    <Box sx={{ maxWidth: 1000, mx: 'auto', position: 'relative', minHeight: '100%' }}>
-      {/* Breadcrumbs */}
-      <Breadcrumbs separator="›" aria-label="breadcrumb" sx={{ mb: 3, fontSize: '0.875rem' }}>
-        <Typography color="text.secondary">Featured</Typography>
-        <Typography color="text.secondary">Pipeline</Typography>
-        <Typography color="text.primary" sx={{ fontWeight: 500 }}>YOLO11n</Typography>
-      </Breadcrumbs>
-
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={6}>
-        
-        {/* Bên trái: Hero Image Gallery (Mô phỏng hình cô gái mặc áo sọc) */}
-        <Box sx={{ flex: 1 }}>
-          {/* Ảnh chính to */}
-          <Box sx={{ 
-            width: '100%', 
-            height: 480, 
-            bgcolor: '#D5C5B9', // Màu be giống nền ảnh
-            borderRadius: 6,
-            mb: 2,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'hidden'
-          }}>
-            {/* Giả lập đường sọc của áo bằng CSS */}
-            <Box sx={{ 
-              width: '100%', 
-              height: '100%', 
-              background: 'repeating-linear-gradient( 90deg, #f4f4f4, #f4f4f4 2px, #333 2px, #333 4px )',
-              opacity: 0.8
-            }} />
-          </Box>
-          
-          {/* 2 Ảnh nhỏ bên dưới */}
-          <Stack direction="row" spacing={2}>
-            <Box sx={{ flex: 1, height: 160, bgcolor: '#E5D6E1', borderRadius: 4, overflow: 'hidden' }}>
-              <Box sx={{ width: '100%', height: '100%', background: 'repeating-linear-gradient( 90deg, #f4f4f4, #f4f4f4 2px, #666 2px, #666 4px )', opacity: 0.6 }} />
-            </Box>
-            <Box sx={{ flex: 1, height: 160, bgcolor: '#C9BAC9', borderRadius: 4, overflow: 'hidden' }}>
-              <Box sx={{ width: '100%', height: '100%', background: 'repeating-linear-gradient( 90deg, #f4f4f4, #f4f4f4 1px, #888 1px, #888 3px )', opacity: 0.4 }} />
-            </Box>
-          </Stack>
-        </Box>
-
-        {/* Bên phải: Nội dung chi tiết (Mô phỏng Title, Add to basket, Accordion) */}
-        <Box sx={{ flex: 1 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-            <Typography variant="h3" sx={{ fontSize: '2.5rem', fontWeight: 400, color: '#1D192B' }}>
-              GreenSM Detection
-            </Typography>
-            <Typography variant="h4" sx={{ fontWeight: 400, color: '#1D192B' }}>
-              78.4%
-            </Typography>
-          </Box>
-
-          <Typography variant="body1" color="text.secondary" sx={{ mb: 4, lineHeight: 1.6 }}>
-            Mô hình YOLO11n đã được tinh chỉnh qua vòng lặp Active Learning thứ 3. 
-            Nhận diện hoàn hảo taxi GreenSM trong các điều kiện thiếu sáng và che khuất.
+    <Box sx={{ maxWidth: 1200, mx: 'auto', width: '100%', spaceY: 4 }}>
+      
+      {/* 1. Android 16 At a Glance Header */}
+      <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+        <Box>
+          <Typography variant="h3" sx={{ fontWeight: 800, letterSpacing: -1, color: 'text.primary', mb: 0.5 }}>
+            GreenSM Hub
           </Typography>
+          <Typography variant="body1" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+            Hệ thống điều phối Active Learning & Kiểm định mô hình YOLO11n
+          </Typography>
+        </Box>
+        <Paper elevation={0} sx={{ 
+          px: 3, 
+          py: 1.5, 
+          borderRadius: 100, 
+          bgcolor: 'primary.light', 
+          color: 'primary.dark',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1
+        }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+            mAP50-95 Target: 78.4%
+          </Typography>
+          <Typography variant="caption" sx={{ bgcolor: 'white', px: 1, py: 0.25, borderRadius: 100, fontWeight: 700 }}>
+            +14.2%
+          </Typography>
+        </Paper>
+      </Box>
 
-          {/* Size & Color giả lập (Slice & Model selection) */}
-          <Stack direction="row" spacing={3} sx={{ alignItems: "center", mb: 3 }}>
-            <Typography variant="body2" sx={{ fontWeight: 500 }}>Slice</Typography>
-            <Stack direction="row" spacing={1}>
-              {['V0', 'V1', 'V2', 'V3'].map((size, idx) => (
-                <Box key={size} sx={{ 
-                  width: 40, height: 40, 
-                  borderRadius: '50%', 
-                  border: idx === 1 ? '1px solid transparent' : '1px solid #E5E5E5',
-                  bgcolor: idx === 1 ? 'primary.light' : 'transparent',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '0.875rem', fontWeight: idx === 1 ? 600 : 400,
-                  color: idx === 1 ? 'primary.dark' : 'text.primary',
-                  cursor: 'pointer'
+      {/* 2. Android 16 Quick Settings Tiles (4 Ô điều khiển dạng viên thuốc lớn) */}
+      <Typography variant="subtitle2" sx={{ textTransform: 'uppercase', letterSpacing: 1.2, fontWeight: 700, color: 'text.secondary', mb: 2 }}>
+        Quick Controls & Services
+      </Typography>
+
+      <Grid container spacing={2.5} sx={{ mb: 4 }}>
+        
+        {/* Tile 1: Two-Tier Active Mining */}
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <Paper elevation={0} sx={{ 
+            p: 2.5, 
+            borderRadius: 7, 
+            bgcolor: activeMining ? 'primary.light' : 'background.paper',
+            color: activeMining ? 'primary.dark' : 'text.primary',
+            transition: 'all 0.2s',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: 140
+          }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <Box sx={{ 
+                bgcolor: activeMining ? 'primary.main' : 'rgba(0,0,0,0.06)', 
+                color: activeMining ? 'white' : 'inherit',
+                p: 1.25, 
+                borderRadius: 5 
+              }}>
+                <AutoAwesomeRoundedIcon />
+              </Box>
+              <Switch 
+                checked={activeMining} 
+                onChange={(e) => setActiveMining(e.target.checked)}
+                color="primary"
+              />
+            </Box>
+            <Box>
+              <Typography variant="subtitle1" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
+                Active Mining
+              </Typography>
+              <Typography variant="caption" sx={{ opacity: 0.8, fontWeight: 500 }}>
+                {activeMining ? '300 mẫu ứng viên' : 'Đang tạm dừng'}
+              </Typography>
+            </Box>
+          </Paper>
+        </Grid>
+
+        {/* Tile 2: OpenVINO INT8 Acceleration */}
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <Paper elevation={0} sx={{ 
+            p: 2.5, 
+            borderRadius: 7, 
+            bgcolor: openVinoBoost ? 'secondary.light' : 'background.paper',
+            color: openVinoBoost ? 'secondary.dark' : 'text.primary',
+            transition: 'all 0.2s',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: 140
+          }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <Box sx={{ 
+                bgcolor: openVinoBoost ? 'secondary.main' : 'rgba(0,0,0,0.06)', 
+                color: openVinoBoost ? 'white' : 'inherit',
+                p: 1.25, 
+                borderRadius: 5 
+              }}>
+                <SpeedRoundedIcon />
+              </Box>
+              <Switch 
+                checked={openVinoBoost} 
+                onChange={(e) => setOpenVinoBoost(e.target.checked)}
+                color="secondary"
+              />
+            </Box>
+            <Box>
+              <Typography variant="subtitle1" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
+                OpenVINO INT8
+              </Typography>
+              <Typography variant="caption" sx={{ opacity: 0.8, fontWeight: 500 }}>
+                21.4 FPS • CPU Latency 46ms
+              </Typography>
+            </Box>
+          </Paper>
+        </Grid>
+
+        {/* Tile 3: pHash Dedup Status */}
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <Paper elevation={0} sx={{ 
+            p: 2.5, 
+            borderRadius: 7, 
+            bgcolor: 'background.paper',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: 140
+          }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <Box sx={{ bgcolor: '#FFF3E0', color: '#E65100', p: 1.25, borderRadius: 5 }}>
+                <FilterTiltShiftRoundedIcon />
+              </Box>
+              <Typography variant="caption" sx={{ fontWeight: 700, color: '#E65100', bgcolor: '#FFE0B2', px: 1, py: 0.25, borderRadius: 100 }}>
+                24.9% Lọc
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="subtitle1" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
+                pHash BK-Tree
+              </Typography>
+              <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+                Loại bỏ 610 ảnh trùng lặp
+              </Typography>
+            </Box>
+          </Paper>
+        </Grid>
+
+        {/* Tile 4: Two-Tier Consensus */}
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <Paper elevation={0} sx={{ 
+            p: 2.5, 
+            borderRadius: 7, 
+            bgcolor: 'background.paper',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: 140
+          }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <Box sx={{ bgcolor: '#E1F5FE', color: '#0277BD', p: 1.25, borderRadius: 5 }}>
+                <SecurityRoundedIcon />
+              </Box>
+              <Typography variant="caption" sx={{ fontWeight: 700, color: '#0277BD', bgcolor: '#B3E5FC', px: 1, py: 0.25, borderRadius: 100 }}>
+                IoU &ge; 0.70
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="subtitle1" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
+                Two-Tier Oracle
+              </Typography>
+              <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+                84.2% Tự duyệt bởi RT-DETR
+              </Typography>
+            </Box>
+          </Paper>
+        </Grid>
+
+      </Grid>
+
+      {/* 3. Main Bento: Android 16 Thick Pill Sliders & Slices Monitor */}
+      <Grid container spacing={3}>
+        
+        {/* Left: Thick Expressive Volume/Weight Slider */}
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Paper elevation={0} sx={{ p: 4, borderRadius: 8, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
+                <MemoryRoundedIcon color="primary" />
+                <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                  Active Score Tuner (Android 16 Slider)
+                </Typography>
+              </Box>
+              <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4 }}>
+                Điều chỉnh trọng số Uncertainty (Ui) bằng thanh trượt dày thế hệ mới:
+              </Typography>
+
+              {/* Android 16 Thick Pill Slider */}
+              <Box sx={{ mb: 4 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1.5 }}>
+                  <Typography variant="body2" sx={{ fontWeight: 700 }}>Uncertainty Margin (Ui)</Typography>
+                  <Typography variant="body2" sx={{ fontWeight: 800, color: 'primary.main' }}>{uncertaintyWeight}%</Typography>
+                </Box>
+                <Slider 
+                  value={uncertaintyWeight} 
+                  onChange={(_, val) => setUncertaintyWeight(val as number)}
+                  sx={{ 
+                    height: 28, // Siêu dày chuẩn Android 16
+                    borderRadius: 100,
+                    color: 'primary.main',
+                    '& .MuiSlider-thumb': {
+                      width: 24,
+                      height: 24,
+                      bgcolor: 'white',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                    },
+                    '& .MuiSlider-track': {
+                      border: 'none',
+                    },
+                    '& .MuiSlider-rail': {
+                      bgcolor: 'rgba(0,0,0,0.08)',
+                      opacity: 1
+                    }
+                  }} 
+                />
+              </Box>
+            </Box>
+
+            <Paper elevation={0} sx={{ p: 2.5, borderRadius: 6, bgcolor: 'primary.light', color: 'primary.dark', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Box>
+                <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Công thức Active Score</Typography>
+                <Typography variant="caption" sx={{ fontWeight: 600 }}>Si = (Ui • Wi • Ai) / Ei</Typography>
+              </Box>
+              <IconButton sx={{ bgcolor: 'white', color: 'primary.dark' }}>
+                <ArrowForwardRoundedIcon />
+              </IconButton>
+            </Paper>
+          </Paper>
+        </Grid>
+
+        {/* Right: Slices Breakdown Card */}
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Paper elevation={0} sx={{ p: 4, borderRadius: 8 }}>
+            <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
+              5 Lát cắt Gai góc (Hard Slices)
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
+              Phân bổ số liệu thực tế được giám sát qua các camera đô thị:
+            </Typography>
+
+            <Stack spacing={2.5}>
+              {[
+                { name: 'Night Slice (Ban đêm)', count: 420, pct: 64, color: '#386A20' },
+                { name: 'Small Object (< 32px)', count: 510, pct: 58, color: '#E65100' },
+                { name: 'Occlusion (Che khuất)', count: 380, pct: 61, color: '#0277BD' },
+                { name: 'Dense Traffic (Ùn ứ)', count: 320, pct: 69, color: '#6A1B9A' },
+              ].map((slice, i) => (
+                <Box key={i} sx={{ 
+                  p: 2, 
+                  borderRadius: 6, 
+                  bgcolor: 'rgba(0, 0, 0, 0.03)',
+                  display: 'flex', 
+                  justifyContent: 'space-between', 
+                  alignItems: 'center' 
                 }}>
-                  {size}
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: slice.color }} />
+                    <Box>
+                      <Typography variant="body2" sx={{ fontWeight: 700 }}>{slice.name}</Typography>
+                      <Typography variant="caption" sx={{ color: 'text.secondary' }}>{slice.count} ảnh trong pool</Typography>
+                    </Box>
+                  </Box>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: slice.color }}>
+                    {slice.pct}% mAP
+                  </Typography>
                 </Box>
               ))}
             </Stack>
-          </Stack>
+          </Paper>
+        </Grid>
 
-          <Stack direction="row" spacing={3} sx={{ alignItems: "center", mb: 5 }}>
-            <Typography variant="body2" sx={{ fontWeight: 500 }}>Status</Typography>
-            <Stack direction="row" spacing={1.5}>
-              <Box sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: '#000000' }} />
-              <Box sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: '#F4D8A6' }} />
-              <Box sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: '#98DFE9' }} />
-            </Stack>
-          </Stack>
-
-          {/* Add to basket Row */}
-          <Stack direction="row" spacing={2} sx={{ mb: 5 }}>
-            <Button 
-              variant="contained" 
-              fullWidth 
-              sx={{ 
-                bgcolor: 'primary.light', 
-                color: 'primary.dark',
-                '&:hover': { bgcolor: '#F0C8D4' },
-                py: 1.5,
-                fontSize: '1rem',
-                fontWeight: 500
-              }}
-            >
-              Run Pipeline
-            </Button>
-            <IconButton sx={{ 
-              bgcolor: 'primary.light', 
-              color: 'primary.dark', 
-              borderRadius: 4, 
-              width: 52, 
-              height: 52,
-              '&:hover': { bgcolor: '#F0C8D4' }
-            }}>
-              <FavoriteBorderIcon />
-            </IconButton>
-          </Stack>
-
-          {/* Accordions */}
-          <Accordion disableGutters>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ px: 3, py: 1 }}>
-              <Typography sx={{ fontWeight: 500 }} color="#1D192B">More details</Typography>
-            </AccordionSummary>
-            <AccordionDetails sx={{ px: 3, pb: 3 }}>
-              <Typography variant="body2" color="text.secondary">
-                Dữ liệu huấn luyện gồm 2,450 ảnh được lọc trùng lặp qua thuật toán pHash.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-
-          <Accordion disableGutters defaultExpanded>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ px: 3, py: 1 }}>
-              <Typography sx={{ fontWeight: 500 }} color="#1D192B">Ratings and Reviews</Typography>
-            </AccordionSummary>
-            <AccordionDetails sx={{ px: 3, pb: 3 }}>
-              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.8rem' }}>
-                ★★★★☆ Perfect transition piece, just need more options.<br/><br/>
-                I've been using this model since it arrived. As someone who is constantly monitoring traffic... <strong>Read more</strong>
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-
-        </Box>
-      </Stack>
-
-      {/* Floating Action Pill (Giống giỏ hàng nổi góc dưới phải của ảnh) */}
-      <Box sx={{ 
-        position: 'absolute', 
-        bottom: 0, 
-        right: 0, 
-        bgcolor: 'primary.light',
-        borderRadius: 4,
-        display: 'flex',
-        alignItems: 'center',
-        p: 1.5,
-        pr: 3,
-        boxShadow: '0 4px 20px rgba(152,64,97,0.15)',
-        zIndex: 10
-      }}>
-        <IconButton size="small" sx={{ color: 'primary.dark', mr: 1 }}>
-          <ShoppingCartIcon fontSize="small" />
-        </IconButton>
-        <AvatarGroup max={3} sx={{ '& .MuiAvatar-root': { width: 28, height: 28, fontSize: '0.75rem', borderColor: 'primary.light' } }}>
-          <Avatar sx={{ bgcolor: '#4CAF50' }}>V0</Avatar>
-          <Avatar sx={{ bgcolor: '#2196F3' }}>V1</Avatar>
-        </AvatarGroup>
-        <Typography sx={{ ml: 1, color: 'primary.dark', fontWeight: 600, fontSize: '0.875rem' }}>+1</Typography>
-      </Box>
+      </Grid>
 
     </Box>
   );
