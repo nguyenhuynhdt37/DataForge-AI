@@ -1,16 +1,1 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 4%;      /* #0a0a0a */
-    --foreground: 0 0% 98%;     /* #fafafa */
-  }
-}
-
-body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-  -webkit-font-smoothing: antialiased;
-}
