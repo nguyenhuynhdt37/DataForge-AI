@@ -9,9 +9,6 @@ import {
   Grid,
   Button,
   LinearProgress,
-  Chip,
-  CardActions,
-  Divider,
   Paper,
   Stack,
   Fab
@@ -48,11 +45,10 @@ export default function OverviewDashboard() {
           { icon: <SavingsIcon color="primary" />, title: 'Giờ công tiết kiệm', value: '92 Giờ', label: 'Tương đương 3.8x hiệu suất' },
           { icon: <CheckCircleIcon color="primary" />, title: 'Tự động duyệt', value: '84.2%', label: 'IoU đồng thuận > 0.70' },
         ].map((metric, i) => (
-          <Grid item xs={12} md={4} key={i}>
-            {/* Tonal M3 Surface Container */}
+          <Grid size={{ xs: 12, md: 4 }} key={i}>
             <Card sx={{ bgcolor: 'background.paper', p: 1 }}>
               <CardContent>
-                <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 2 }}>
+                <Stack direction="row"  spacing={1.5} sx={{ mb: 2, alignItems: "center" }}>
                   <Box sx={{ 
                     bgcolor: 'primary.light', 
                     borderRadius: 2, 
@@ -80,7 +76,7 @@ export default function OverviewDashboard() {
 
       {/* Main Content Area */}
       <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Paper elevation={0} sx={{ 
             p: 3, 
             borderRadius: 4, 
@@ -120,7 +116,7 @@ export default function OverviewDashboard() {
           </Paper>
         </Grid>
         
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Paper elevation={0} sx={{ 
             p: 3, 
             borderRadius: 4, 
@@ -146,7 +142,7 @@ export default function OverviewDashboard() {
         </Grid>
       </Grid>
       
-      {/* M3 Floating Action Button (FAB) example */}
+      {/* Floating Action Button (M3 FAB) */}
       <Fab color="secondary" aria-label="add" sx={{ position: 'fixed', bottom: 32, right: 32, boxShadow: 3 }}>
         <AddIcon />
       </Fab>
