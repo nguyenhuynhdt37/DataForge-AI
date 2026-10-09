@@ -6,119 +6,132 @@ import {
   createTheme, 
   CssBaseline,
   Box,
-  Drawer,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  AppBar,
-  Toolbar,
   Typography,
-  IconButton,
   Avatar,
-  Badge
+  Stack
 } from '@mui/material';
+import DiamondIcon from '@mui/icons-material/Diamond';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import StorageIcon from '@mui/icons-material/Storage';
 import TuneIcon from '@mui/icons-material/Tune';
 import EditIcon from '@mui/icons-material/Edit';
 import AssessmentIcon from '@mui/icons-material/Assessment';
-import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { usePathname, useRouter } from 'next/navigation';
 
-const m3Theme = createTheme({
+// Theme chuẩn M3 Expressive (Mô phỏng chính xác tông màu Soft Rose/Pink từ ảnh)
+const m3ExpressiveTheme = createTheme({
   cssVariables: true,
   palette: {
     primary: {
-      main: '#6750A4', // M3 Baseline Primary
-      light: '#EADDFF', // Primary Container
-      dark: '#21005D', // On Primary Container
+      main: '#984061', // Đỏ đô/Hồng đậm
+      light: '#FFD9E2', // Hồng nhạt (Pill background)
+      dark: '#3E001D',
       contrastText: '#FFFFFF',
     },
     secondary: {
-      main: '#625B71',
-      light: '#E8DEF8', // Secondary Container
-      dark: '#1D192B', // On Secondary Container
+      main: '#74565F',
+      light: '#FFD9E2',
+      dark: '#2B151C',
       contrastText: '#FFFFFF',
     },
-    error: {
-      main: '#B3261E',
-      light: '#F9DEDC',
-    },
     background: {
-      default: '#FEF7FF', // M3 Surface
-      paper: '#F3EDF7',   // M3 Surface Container Highest
+      default: '#FFF0F5', // Nền tổng thể màu hồng pastel nhạt
+      paper: '#FFFFFF',   // Nền thẻ màu trắng
     },
     text: {
-      primary: '#1D1B20', // M3 On Surface
-      secondary: '#49454F', // M3 On Surface Variant
+      primary: '#201A1B',
+      secondary: '#504347',
     }
   },
   shape: {
-    borderRadius: 16,
+    borderRadius: 24, // Bo góc lớn đặc trưng của M3 Expressive
   },
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    button: { textTransform: 'none', fontWeight: 500, letterSpacing: '0.1px' },
-    h1: { letterSpacing: '-0.2px' },
-    h4: { fontWeight: 400 },
+    button: { textTransform: 'none', fontWeight: 600 },
+    h3: { fontWeight: 400, color: '#201A1B' },
     h6: { fontWeight: 500 },
+    body2: { color: '#504347', lineHeight: 1.6 },
   },
   components: {
     MuiButton: {
-      defaultProps: {
-        disableElevation: true,
-      },
+      defaultProps: { disableElevation: true },
       styleOverrides: {
         root: {
-          borderRadius: 100,
-          padding: '10px 24px',
+          borderRadius: 100, // Nút tròn xoe dạng Pill
+          padding: '12px 24px',
         }
       }
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
-          backgroundColor: '#F3EDF7',
-          boxShadow: 'none',
-          border: '1px solid transparent',
+          borderRadius: 24,
+          boxShadow: 'none', // Hoàn toàn không dùng bóng gắt
         }
       }
     },
-    MuiAppBar: {
-      defaultProps: {
-        elevation: 0,
-      },
+    MuiAccordion: {
       styleOverrides: {
         root: {
-          backgroundColor: '#FEF7FF',
-          color: '#1D1B20',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+          backgroundColor: '#FFF0F5', // Giống màu Accordion trong ảnh
+          boxShadow: 'none',
+          '&:before': { display: 'none' }, // Bỏ gạch chân mặc định của MUI
+          borderRadius: '16px !important',
+          margin: '8px 0',
         }
       }
     },
-    MuiDrawer: {
+    MuiListItemButton: {
       styleOverrides: {
-        paper: {
-          backgroundColor: '#FEF7FF',
-          borderRight: 'none',
+        root: {
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '12px 0',
+          borderRadius: 16,
+        }
+      }
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          minWidth: 'auto',
+          margin: '0 auto',
+          padding: '4px 16px',
+          borderRadius: 16,
+        }
+      }
+    },
+    MuiListItemText: {
+      styleOverrides: {
+        root: {
+          marginTop: 8,
+          marginBottom: 0,
+        },
+        primary: {
+          fontSize: '0.65rem',
+          fontWeight: 600,
+          textAlign: 'center',
         }
       }
     }
   }
 });
 
-const DRAWER_WIDTH = 280;
+const NAV_WIDTH = 96;
 
 const ROUTES = [
-  { text: 'Overview', path: '/', icon: <DashboardIcon /> },
-  { text: 'Data Lab', path: '/data-lab', icon: <StorageIcon /> },
-  { text: 'Active Mining', path: '/active-mining', icon: <TuneIcon /> },
-  { text: 'HITL Studio', path: '/hitl-studio', icon: <EditIcon /> },
-  { text: 'Benchmark', path: '/benchmark', icon: <AssessmentIcon /> },
+  { text: 'Featured', path: '/', icon: <DashboardIcon fontSize="small" /> },
+  { text: 'Data Lab', path: '/data-lab', icon: <StorageIcon fontSize="small" /> },
+  { text: 'Mining', path: '/active-mining', icon: <TuneIcon fontSize="small" /> },
+  { text: 'Studio', path: '/hitl-studio', icon: <EditIcon fontSize="small" /> },
+  { text: 'Reports', path: '/benchmark', icon: <AssessmentIcon fontSize="small" /> },
 ];
 
 export default function M3Provider({ children }: { children: React.ReactNode }) {
@@ -126,72 +139,57 @@ export default function M3Provider({ children }: { children: React.ReactNode }) 
   const router = useRouter();
 
   return (
-    <ThemeProvider theme={m3Theme}>
+    <ThemeProvider theme={m3ExpressiveTheme}>
       <CssBaseline />
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden', bgcolor: 'background.default', p: { xs: 0, md: 2 } }}>
         
-        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-          <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              GreenSM Detection Lab
-            </Typography>
-            <IconButton color="inherit" sx={{ mr: 2 }}>
-              <Badge badgeContent={3} color="error">
-                <NotificationsNoneIcon />
-              </Badge>
-            </IconButton>
-            <Avatar sx={{ bgcolor: 'primary.main', width: 32, height: 32, fontSize: '0.875rem' }}>A</Avatar>
-          </Toolbar>
-        </AppBar>
-
-        <Drawer
-          variant="permanent"
-          sx={{
-            width: DRAWER_WIDTH,
-            flexShrink: 0,
-            '& .MuiDrawer-paper': { 
-              width: DRAWER_WIDTH, 
-              boxSizing: 'border-box',
-              pt: 2,
-            },
-          }}
-        >
-          <Toolbar />
-          <Box sx={{ overflow: 'auto', px: 1.5 }}>
-            <List>
+        {/* Lớp bọc màu trắng cho giao diện chính giống trong hình (Tablet/Desktop view) */}
+        <Box sx={{ 
+          display: 'flex', 
+          width: '100%', 
+          bgcolor: 'background.paper', 
+          borderRadius: { xs: 0, md: 4 },
+          overflow: 'hidden',
+          boxShadow: { xs: 'none', md: '0px 10px 40px rgba(0,0,0,0.05)' }
+        }}>
+          
+          {/* Navigation Rail (Giống hệt ảnh bên trái màn hình phải) */}
+          <Box sx={{ 
+            width: NAV_WIDTH, 
+            flexShrink: 0, 
+            display: 'flex', 
+            flexDirection: 'column',
+            alignItems: 'center',
+            py: 3,
+            borderRight: '1px solid rgba(0,0,0,0.04)'
+          }}>
+            <DiamondIcon sx={{ color: '#984061', fontSize: 32, mb: 4 }} />
+            
+            <List sx={{ width: '100%', px: 1 }}>
               {ROUTES.map((route) => {
                 const isActive = pathname === route.path;
                 return (
-                  <ListItem key={route.text} disablePadding sx={{ mb: 0.5 }}>
+                  <ListItem key={route.text} disablePadding sx={{ mb: 1 }}>
                     <ListItemButton 
                       onClick={() => router.push(route.path)}
-                      selected={isActive}
                       sx={{
-                        borderRadius: 100,
-                        px: 3,
-                        py: 1.25,
-                        '&.Mui-selected': {
-                          bgcolor: 'primary.light',
-                          color: 'primary.dark',
-                          '&:hover': { bgcolor: 'primary.light', filter: 'brightness(0.95)' }
-                        },
-                        '&.Mui-selected .MuiListItemIcon-root': {
-                          color: 'primary.dark',
-                        }
+                        '&:hover': { bgcolor: 'transparent' }
                       }}
                     >
-                      <ListItemIcon sx={{ minWidth: 44, color: isActive ? 'primary.dark' : 'text.secondary' }}>
+                      <ListItemIcon sx={{ 
+                        bgcolor: isActive ? 'primary.light' : 'transparent',
+                        color: isActive ? 'primary.dark' : 'text.secondary',
+                        transition: 'background-color 0.2s',
+                        '& svg': { fontSize: '1.25rem' }
+                      }}>
                         {route.icon}
                       </ListItemIcon>
                       <ListItemText 
                         primary={route.text}
                         sx={{
                           '& .MuiListItemText-primary': {
-                            fontWeight: isActive ? 600 : 500,
                             color: isActive ? 'primary.dark' : 'text.secondary',
+                            opacity: isActive ? 1 : 0.7
                           }
                         }}
                       />
@@ -201,11 +199,11 @@ export default function M3Provider({ children }: { children: React.ReactNode }) 
               })}
             </List>
           </Box>
-        </Drawer>
 
-        <Box component="main" sx={{ flexGrow: 1, p: 4, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-          <Toolbar />
-          {children}
+          {/* Main Content Area */}
+          <Box component="main" sx={{ flexGrow: 1, p: { xs: 2, md: 4 }, overflowY: 'auto' }}>
+            {children}
+          </Box>
         </Box>
       </Box>
     </ThemeProvider>

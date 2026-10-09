@@ -4,150 +4,192 @@ import React from 'react';
 import { 
   Box, 
   Typography, 
-  Card, 
-  CardContent, 
-  Grid, 
   Button, 
-  LinearProgress, 
-  Paper, 
-  Stack, 
-  Fab 
+  Stack,
+  IconButton,
+  Breadcrumbs,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Avatar,
+  AvatarGroup
 } from '@mui/material';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import SavingsIcon from '@mui/icons-material/Savings';
-import InsightsIcon from '@mui/icons-material/Insights';
-import AddIcon from '@mui/icons-material/Add';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 export default function OverviewDashboard() {
   return (
-    <Box sx={{ maxWidth: 1200, mx: 'auto', width: '100%' }}>
-      {/* Header Section */}
-      <Box sx={{ mb: 5, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <Box>
-          <Typography variant="h4" sx={{ fontWeight: 400, color: 'text.primary', mb: 1 }}>
-            Overview
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Hiệu suất mô hình hiện tại và phân bổ dữ liệu gán nhãn
-          </Typography>
-        </Box>
-        <Button variant="contained" color="primary" endIcon={<KeyboardArrowRightIcon />}>
-          Chạy vòng lặp mới
-        </Button>
-      </Box>
+    <Box sx={{ maxWidth: 1000, mx: 'auto', position: 'relative', minHeight: '100%' }}>
+      {/* Breadcrumbs */}
+      <Breadcrumbs separator="›" aria-label="breadcrumb" sx={{ mb: 3, fontSize: '0.875rem' }}>
+        <Typography color="text.secondary">Featured</Typography>
+        <Typography color="text.secondary">Pipeline</Typography>
+        <Typography color="text.primary" sx={{ fontWeight: 500 }}>YOLO11n</Typography>
+      </Breadcrumbs>
 
-      {/* Metrics Row (Tonal Cards) */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
-        {[
-          { icon: <TrendingUpIcon color="primary" />, title: 'Độ chính xác (mAP)', value: '78.4%', label: '+14.2% so với V0' },
-          { icon: <SavingsIcon color="primary" />, title: 'Giờ công tiết kiệm', value: '92 Giờ', label: 'Tương đương 3.8x hiệu suất' },
-          { icon: <CheckCircleIcon color="primary" />, title: 'Tự động duyệt', value: '84.2%', label: 'IoU đồng thuận > 0.70' },
-        ].map((metric, i) => (
-          <Grid size={{ xs: 12, md: 4 }} key={i}>
-            <Card sx={{ bgcolor: 'background.paper', p: 1 }}>
-              <CardContent>
-                <Stack direction="row" spacing={1.5} sx={{ mb: 2, alignItems: 'center' }}>
-                  <Box sx={{ 
-                    bgcolor: 'primary.light', 
-                    borderRadius: 2, 
-                    p: 1, 
-                    display: 'flex', 
-                    color: 'primary.dark' 
-                  }}>
-                    {metric.icon}
-                  </Box>
-                  <Typography variant="body1" sx={{ fontWeight: 500, color: 'text.primary' }}>
-                    {metric.title}
-                  </Typography>
-                </Stack>
-                <Typography variant="h3" sx={{ fontWeight: 400, mb: 1, color: 'text.primary' }}>
-                  {metric.value}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {metric.label}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-
-      {/* Main Content Area */}
-      <Grid container spacing={3}>
-        <Grid size={{ xs: 12, md: 8 }}>
-          <Paper elevation={0} sx={{ 
-            p: 3, 
-            borderRadius: 4, 
-            bgcolor: 'background.paper',
-            border: '1px solid',
-            borderColor: 'rgba(0,0,0,0.05)'
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={6}>
+        
+        {/* Bên trái: Hero Image Gallery (Mô phỏng hình cô gái mặc áo sọc) */}
+        <Box sx={{ flex: 1 }}>
+          {/* Ảnh chính to */}
+          <Box sx={{ 
+            width: '100%', 
+            height: 480, 
+            bgcolor: '#D5C5B9', // Màu be giống nền ảnh
+            borderRadius: 6,
+            mb: 2,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden'
           }}>
-            <Box sx={{ mb: 3 }}>
-              <Typography variant="h6" color="text.primary">Cấu trúc Lát cắt Dữ liệu (Data Slices)</Typography>
-              <Typography variant="body2" color="text.secondary">Phân bổ 5 lát cắt khó theo quy chuẩn</Typography>
+            {/* Giả lập đường sọc của áo bằng CSS */}
+            <Box sx={{ 
+              width: '100%', 
+              height: '100%', 
+              background: 'repeating-linear-gradient( 90deg, #f4f4f4, #f4f4f4 2px, #333 2px, #333 4px )',
+              opacity: 0.8
+            }} />
+          </Box>
+          
+          {/* 2 Ảnh nhỏ bên dưới */}
+          <Stack direction="row" spacing={2}>
+            <Box sx={{ flex: 1, height: 160, bgcolor: '#E5D6E1', borderRadius: 4, overflow: 'hidden' }}>
+              <Box sx={{ width: '100%', height: '100%', background: 'repeating-linear-gradient( 90deg, #f4f4f4, #f4f4f4 2px, #666 2px, #666 4px )', opacity: 0.6 }} />
             </Box>
-            
-            <Stack spacing={4}>
-              {[
-                { label: 'Night Slice (Ban đêm)', val: 64.2, count: 420 },
-                { label: 'Small Object (<32px)', val: 58.9, count: 510 },
-                { label: 'Occlusion (Che khuất)', val: 61.5, count: 380 },
-              ].map((slice, i) => (
-                <Box key={i}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                    <Typography variant="body2" sx={{ fontWeight: 500, color: 'text.primary' }}>
-                      {slice.label}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">{slice.count} mẫu</Typography>
-                  </Box>
-                  <LinearProgress 
-                    variant="determinate" 
-                    value={slice.val} 
-                    sx={{ 
-                      height: 8, 
-                      borderRadius: 4,
-                      bgcolor: 'secondary.light',
-                      '& .MuiLinearProgress-bar': { bgcolor: 'primary.main' }
-                    }} 
-                  />
+            <Box sx={{ flex: 1, height: 160, bgcolor: '#C9BAC9', borderRadius: 4, overflow: 'hidden' }}>
+              <Box sx={{ width: '100%', height: '100%', background: 'repeating-linear-gradient( 90deg, #f4f4f4, #f4f4f4 1px, #888 1px, #888 3px )', opacity: 0.4 }} />
+            </Box>
+          </Stack>
+        </Box>
+
+        {/* Bên phải: Nội dung chi tiết (Mô phỏng Title, Add to basket, Accordion) */}
+        <Box sx={{ flex: 1 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
+            <Typography variant="h3" sx={{ fontSize: '2.5rem', fontWeight: 400, color: '#1D192B' }}>
+              GreenSM Detection
+            </Typography>
+            <Typography variant="h4" sx={{ fontWeight: 400, color: '#1D192B' }}>
+              78.4%
+            </Typography>
+          </Box>
+
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 4, lineHeight: 1.6 }}>
+            Mô hình YOLO11n đã được tinh chỉnh qua vòng lặp Active Learning thứ 3. 
+            Nhận diện hoàn hảo taxi GreenSM trong các điều kiện thiếu sáng và che khuất.
+          </Typography>
+
+          {/* Size & Color giả lập (Slice & Model selection) */}
+          <Stack direction="row" spacing={3} sx={{ alignItems: "center", mb: 3 }}>
+            <Typography variant="body2" sx={{ fontWeight: 500 }}>Slice</Typography>
+            <Stack direction="row" spacing={1}>
+              {['V0', 'V1', 'V2', 'V3'].map((size, idx) => (
+                <Box key={size} sx={{ 
+                  width: 40, height: 40, 
+                  borderRadius: '50%', 
+                  border: idx === 1 ? '1px solid transparent' : '1px solid #E5E5E5',
+                  bgcolor: idx === 1 ? 'primary.light' : 'transparent',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '0.875rem', fontWeight: idx === 1 ? 600 : 400,
+                  color: idx === 1 ? 'primary.dark' : 'text.primary',
+                  cursor: 'pointer'
+                }}>
+                  {size}
                 </Box>
               ))}
             </Stack>
-          </Paper>
-        </Grid>
-        
-        <Grid size={{ xs: 12, md: 4 }}>
-          <Paper elevation={0} sx={{ 
-            p: 3, 
-            borderRadius: 4, 
-            bgcolor: 'primary.light',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between'
-          }}>
-            <Box>
-              <InsightsIcon sx={{ color: 'primary.dark', fontSize: 32, mb: 2 }} />
-              <Typography variant="h6" color="primary.dark" sx={{ mb: 1 }}>
-                Pipeline Sẵn sàng
-              </Typography>
-              <Typography variant="body2" color="primary.dark" sx={{ mb: 3 }}>
-                Thuật toán PCA đã phân cụm thành công 1,840 mẫu chưa gán nhãn.
-              </Typography>
-            </Box>
-            <Button variant="contained" color="primary" fullWidth sx={{ py: 1.5 }}>
-              Mở Active Mining
+          </Stack>
+
+          <Stack direction="row" spacing={3} sx={{ alignItems: "center", mb: 5 }}>
+            <Typography variant="body2" sx={{ fontWeight: 500 }}>Status</Typography>
+            <Stack direction="row" spacing={1.5}>
+              <Box sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: '#000000' }} />
+              <Box sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: '#F4D8A6' }} />
+              <Box sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: '#98DFE9' }} />
+            </Stack>
+          </Stack>
+
+          {/* Add to basket Row */}
+          <Stack direction="row" spacing={2} sx={{ mb: 5 }}>
+            <Button 
+              variant="contained" 
+              fullWidth 
+              sx={{ 
+                bgcolor: 'primary.light', 
+                color: 'primary.dark',
+                '&:hover': { bgcolor: '#F0C8D4' },
+                py: 1.5,
+                fontSize: '1rem',
+                fontWeight: 500
+              }}
+            >
+              Run Pipeline
             </Button>
-          </Paper>
-        </Grid>
-      </Grid>
-      
-      {/* Floating Action Button (M3 FAB) */}
-      <Fab color="secondary" aria-label="add" sx={{ position: 'fixed', bottom: 32, right: 32, boxShadow: 3 }}>
-        <AddIcon />
-      </Fab>
+            <IconButton sx={{ 
+              bgcolor: 'primary.light', 
+              color: 'primary.dark', 
+              borderRadius: 4, 
+              width: 52, 
+              height: 52,
+              '&:hover': { bgcolor: '#F0C8D4' }
+            }}>
+              <FavoriteBorderIcon />
+            </IconButton>
+          </Stack>
+
+          {/* Accordions */}
+          <Accordion disableGutters>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ px: 3, py: 1 }}>
+              <Typography sx={{ fontWeight: 500 }} color="#1D192B">More details</Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={{ px: 3, pb: 3 }}>
+              <Typography variant="body2" color="text.secondary">
+                Dữ liệu huấn luyện gồm 2,450 ảnh được lọc trùng lặp qua thuật toán pHash.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion disableGutters defaultExpanded>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ px: 3, py: 1 }}>
+              <Typography sx={{ fontWeight: 500 }} color="#1D192B">Ratings and Reviews</Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={{ px: 3, pb: 3 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.8rem' }}>
+                ★★★★☆ Perfect transition piece, just need more options.<br/><br/>
+                I've been using this model since it arrived. As someone who is constantly monitoring traffic... <strong>Read more</strong>
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+
+        </Box>
+      </Stack>
+
+      {/* Floating Action Pill (Giống giỏ hàng nổi góc dưới phải của ảnh) */}
+      <Box sx={{ 
+        position: 'absolute', 
+        bottom: 0, 
+        right: 0, 
+        bgcolor: 'primary.light',
+        borderRadius: 4,
+        display: 'flex',
+        alignItems: 'center',
+        p: 1.5,
+        pr: 3,
+        boxShadow: '0 4px 20px rgba(152,64,97,0.15)',
+        zIndex: 10
+      }}>
+        <IconButton size="small" sx={{ color: 'primary.dark', mr: 1 }}>
+          <ShoppingCartIcon fontSize="small" />
+        </IconButton>
+        <AvatarGroup max={3} sx={{ '& .MuiAvatar-root': { width: 28, height: 28, fontSize: '0.75rem', borderColor: 'primary.light' } }}>
+          <Avatar sx={{ bgcolor: '#4CAF50' }}>V0</Avatar>
+          <Avatar sx={{ bgcolor: '#2196F3' }}>V1</Avatar>
+        </AvatarGroup>
+        <Typography sx={{ ml: 1, color: 'primary.dark', fontWeight: 600, fontSize: '0.875rem' }}>+1</Typography>
+      </Box>
+
     </Box>
   );
 }
