@@ -1,311 +1,162 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import { 
-  Box, 
-  Typography, 
-  Paper, 
-  Grid, 
-  Stack, 
-  IconButton,
-  Slider,
-  Switch
-} from '@mui/material';
-import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
-import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
-import SpeedRoundedIcon from '@mui/icons-material/SpeedRounded';
-import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded';
-import FilterTiltShiftRoundedIcon from '@mui/icons-material/FilterTiltShiftRounded';
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import MemoryRoundedIcon from '@mui/icons-material/MemoryRounded';
+  Activity, 
+  Settings2, 
+  HardDrive, 
+  BarChart3, 
+  ShieldCheck, 
+  Cpu, 
+  Zap,
+  Play
+} from 'lucide-react';
 
-export default function Android16Dashboard() {
-  const [activeMining, setActiveMining] = useState(true);
-  const [openVinoBoost, setOpenVinoBoost] = useState(true);
-  const [uncertaintyWeight, setUncertaintyWeight] = useState(75);
-
+export default function TailwindDashboard() {
   return (
-    <Box sx={{ maxWidth: 1200, mx: 'auto', width: '100%', spaceY: 4 }}>
-      
-      {/* 1. Android 16 At a Glance Header */}
-      <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-        <Box>
-          <Typography variant="h3" sx={{ fontWeight: 800, letterSpacing: -1, color: 'text.primary', mb: 0.5 }}>
-            GreenSM Hub
-          </Typography>
-          <Typography variant="body1" sx={{ color: 'text.secondary', fontWeight: 500 }}>
-            Hệ thống điều phối Active Learning & Kiểm định mô hình YOLO11n
-          </Typography>
-        </Box>
-        <Paper elevation={0} sx={{ 
-          px: 3, 
-          py: 1.5, 
-          borderRadius: 100, 
-          bgcolor: 'primary.light', 
-          color: 'primary.dark',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1
-        }}>
-          <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
-            mAP50-95 Target: 78.4%
-          </Typography>
-          <Typography variant="caption" sx={{ bgcolor: 'white', px: 1, py: 0.25, borderRadius: 100, fontWeight: 700 }}>
-            +14.2%
-          </Typography>
-        </Paper>
-      </Box>
+    <div className="min-h-screen bg-zinc-950 text-zinc-50 flex flex-col">
+      {/* Top Navbar */}
+      <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-zinc-800 bg-zinc-950/80 px-6 backdrop-blur-md">
+        <div className="flex items-center gap-3">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500">
+            <Zap className="h-4 w-4 text-zinc-950" />
+          </div>
+          <span className="text-sm font-semibold tracking-tight text-zinc-100">GreenSM</span>
+          <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-500">
+            Active Learning
+          </span>
+        </div>
+        <nav className="flex items-center gap-6 text-sm font-medium text-zinc-400">
+          <a href="#" className="text-emerald-500">Overview</a>
+          <a href="#" className="hover:text-zinc-100 transition">Data Lab</a>
+          <a href="#" className="hover:text-zinc-100 transition">Mining</a>
+          <a href="#" className="hover:text-zinc-100 transition">HITL Studio</a>
+          <a href="#" className="hover:text-zinc-100 transition">Reports</a>
+        </nav>
+      </header>
 
-      {/* 2. Android 16 Quick Settings Tiles (4 Ô điều khiển dạng viên thuốc lớn) */}
-      <Typography variant="subtitle2" sx={{ textTransform: 'uppercase', letterSpacing: 1.2, fontWeight: 700, color: 'text.secondary', mb: 2 }}>
-        Quick Controls & Services
-      </Typography>
+      {/* Main Content */}
+      <main className="flex-1 p-6 md:p-8 lg:px-12 max-w-[1400px] mx-auto w-full">
+        {/* Page Header */}
+        <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
+          <div>
+            <h1 className="text-2xl font-semibold tracking-tight text-zinc-100">
+              Tổng quan Pipeline YOLO11n
+            </h1>
+            <p className="text-sm text-zinc-400 mt-1">
+              Hệ thống giám sát hiệu suất nhận diện và tối ưu hoá dữ liệu gán nhãn.
+            </p>
+          </div>
+          <button className="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-emerald-500 px-4 text-sm font-medium text-zinc-950 transition-colors hover:bg-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
+            <Play className="h-4 w-4" />
+            Bắt đầu Pipeline
+          </button>
+        </div>
 
-      <Grid container spacing={2.5} sx={{ mb: 4 }}>
-        
-        {/* Tile 1: Two-Tier Active Mining */}
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <Paper elevation={0} sx={{ 
-            p: 2.5, 
-            borderRadius: 7, 
-            bgcolor: activeMining ? 'primary.light' : 'background.paper',
-            color: activeMining ? 'primary.dark' : 'text.primary',
-            transition: 'all 0.2s',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            height: 140
-          }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <Box sx={{ 
-                bgcolor: activeMining ? 'primary.main' : 'rgba(0,0,0,0.06)', 
-                color: activeMining ? 'white' : 'inherit',
-                p: 1.25, 
-                borderRadius: 5 
-              }}>
-                <AutoAwesomeRoundedIcon />
-              </Box>
-              <Switch 
-                checked={activeMining} 
-                onChange={(e) => setActiveMining(e.target.checked)}
-                color="primary"
-              />
-            </Box>
-            <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
-                Active Mining
-              </Typography>
-              <Typography variant="caption" sx={{ opacity: 0.8, fontWeight: 500 }}>
-                {activeMining ? '300 mẫu ứng viên' : 'Đang tạm dừng'}
-              </Typography>
-            </Box>
-          </Paper>
-        </Grid>
+        {/* 3 Metric Cards */}
+        <div className="grid gap-4 md:grid-cols-3 mb-8">
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 shadow-sm">
+            <div className="flex items-center justify-between pb-2">
+              <span className="text-sm font-medium text-zinc-400">Độ chính xác mục tiêu</span>
+              <Activity className="h-4 w-4 text-emerald-500" />
+            </div>
+            <div className="text-2xl font-bold tracking-tight text-zinc-100">78.4%</div>
+            <p className="text-xs text-zinc-500 mt-1 flex items-center gap-1">
+              <span className="text-emerald-500 font-medium">+14.2%</span> so với V0 Baseline
+            </p>
+          </div>
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 shadow-sm">
+            <div className="flex items-center justify-between pb-2">
+              <span className="text-sm font-medium text-zinc-400">IoU Đồng thuận Tự động</span>
+              <ShieldCheck className="h-4 w-4 text-blue-500" />
+            </div>
+            <div className="text-2xl font-bold tracking-tight text-zinc-100">84.2%</div>
+            <p className="text-xs text-zinc-500 mt-1 flex items-center gap-1">
+              <span className="text-blue-500 font-medium">Bởi RT-DETR</span> ở Tier 1
+            </p>
+          </div>
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 shadow-sm">
+            <div className="flex items-center justify-between pb-2">
+              <span className="text-sm font-medium text-zinc-400">Tốc độ OpenVINO Edge</span>
+              <Cpu className="h-4 w-4 text-purple-500" />
+            </div>
+            <div className="text-2xl font-bold tracking-tight text-zinc-100">21.4 FPS</div>
+            <p className="text-xs text-zinc-500 mt-1 flex items-center gap-1">
+              <span className="text-purple-500 font-medium">4.2ms</span> trên CPU INT8
+            </p>
+          </div>
+        </div>
 
-        {/* Tile 2: OpenVINO INT8 Acceleration */}
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <Paper elevation={0} sx={{ 
-            p: 2.5, 
-            borderRadius: 7, 
-            bgcolor: openVinoBoost ? 'secondary.light' : 'background.paper',
-            color: openVinoBoost ? 'secondary.dark' : 'text.primary',
-            transition: 'all 0.2s',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            height: 140
-          }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <Box sx={{ 
-                bgcolor: openVinoBoost ? 'secondary.main' : 'rgba(0,0,0,0.06)', 
-                color: openVinoBoost ? 'white' : 'inherit',
-                p: 1.25, 
-                borderRadius: 5 
-              }}>
-                <SpeedRoundedIcon />
-              </Box>
-              <Switch 
-                checked={openVinoBoost} 
-                onChange={(e) => setOpenVinoBoost(e.target.checked)}
-                color="secondary"
-              />
-            </Box>
-            <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
-                OpenVINO INT8
-              </Typography>
-              <Typography variant="caption" sx={{ opacity: 0.8, fontWeight: 500 }}>
-                21.4 FPS • CPU Latency 46ms
-              </Typography>
-            </Box>
-          </Paper>
-        </Grid>
-
-        {/* Tile 3: pHash Dedup Status */}
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <Paper elevation={0} sx={{ 
-            p: 2.5, 
-            borderRadius: 7, 
-            bgcolor: 'background.paper',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            height: 140
-          }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <Box sx={{ bgcolor: '#FFF3E0', color: '#E65100', p: 1.25, borderRadius: 5 }}>
-                <FilterTiltShiftRoundedIcon />
-              </Box>
-              <Typography variant="caption" sx={{ fontWeight: 700, color: '#E65100', bgcolor: '#FFE0B2', px: 1, py: 0.25, borderRadius: 100 }}>
-                24.9% Lọc
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
-                pHash BK-Tree
-              </Typography>
-              <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 500 }}>
-                Loại bỏ 610 ảnh trùng lặp
-              </Typography>
-            </Box>
-          </Paper>
-        </Grid>
-
-        {/* Tile 4: Two-Tier Consensus */}
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <Paper elevation={0} sx={{ 
-            p: 2.5, 
-            borderRadius: 7, 
-            bgcolor: 'background.paper',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            height: 140
-          }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <Box sx={{ bgcolor: '#E1F5FE', color: '#0277BD', p: 1.25, borderRadius: 5 }}>
-                <SecurityRoundedIcon />
-              </Box>
-              <Typography variant="caption" sx={{ fontWeight: 700, color: '#0277BD', bgcolor: '#B3E5FC', px: 1, py: 0.25, borderRadius: 100 }}>
-                IoU &ge; 0.70
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
-                Two-Tier Oracle
-              </Typography>
-              <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 500 }}>
-                84.2% Tự duyệt bởi RT-DETR
-              </Typography>
-            </Box>
-          </Paper>
-        </Grid>
-
-      </Grid>
-
-      {/* 3. Main Bento: Android 16 Thick Pill Sliders & Slices Monitor */}
-      <Grid container spacing={3}>
-        
-        {/* Left: Thick Expressive Volume/Weight Slider */}
-        <Grid size={{ xs: 12, md: 6 }}>
-          <Paper elevation={0} sx={{ p: 4, borderRadius: 8, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
-                <MemoryRoundedIcon color="primary" />
-                <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                  Active Score Tuner (Android 16 Slider)
-                </Typography>
-              </Box>
-              <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4 }}>
-                Điều chỉnh trọng số Uncertainty (Ui) bằng thanh trượt dày thế hệ mới:
-              </Typography>
-
-              {/* Android 16 Thick Pill Slider */}
-              <Box sx={{ mb: 4 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1.5 }}>
-                  <Typography variant="body2" sx={{ fontWeight: 700 }}>Uncertainty Margin (Ui)</Typography>
-                  <Typography variant="body2" sx={{ fontWeight: 800, color: 'primary.main' }}>{uncertaintyWeight}%</Typography>
-                </Box>
-                <Slider 
-                  value={uncertaintyWeight} 
-                  onChange={(_, val) => setUncertaintyWeight(val as number)}
-                  sx={{ 
-                    height: 28, // Siêu dày chuẩn Android 16
-                    borderRadius: 100,
-                    color: 'primary.main',
-                    '& .MuiSlider-thumb': {
-                      width: 24,
-                      height: 24,
-                      bgcolor: 'white',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-                    },
-                    '& .MuiSlider-track': {
-                      border: 'none',
-                    },
-                    '& .MuiSlider-rail': {
-                      bgcolor: 'rgba(0,0,0,0.08)',
-                      opacity: 1
-                    }
-                  }} 
-                />
-              </Box>
-            </Box>
-
-            <Paper elevation={0} sx={{ p: 2.5, borderRadius: 6, bgcolor: 'primary.light', color: 'primary.dark', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Box>
-                <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Công thức Active Score</Typography>
-                <Typography variant="caption" sx={{ fontWeight: 600 }}>Si = (Ui • Wi • Ai) / Ei</Typography>
-              </Box>
-              <IconButton sx={{ bgcolor: 'white', color: 'primary.dark' }}>
-                <ArrowForwardRoundedIcon />
-              </IconButton>
-            </Paper>
-          </Paper>
-        </Grid>
-
-        {/* Right: Slices Breakdown Card */}
-        <Grid size={{ xs: 12, md: 6 }}>
-          <Paper elevation={0} sx={{ p: 4, borderRadius: 8 }}>
-            <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
-              5 Lát cắt Gai góc (Hard Slices)
-            </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
-              Phân bổ số liệu thực tế được giám sát qua các camera đô thị:
-            </Typography>
-
-            <Stack spacing={2.5}>
+        {/* 2 Cols Content */}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+          
+          {/* Slices Breakdown */}
+          <div className="lg:col-span-4 rounded-xl border border-zinc-800 bg-zinc-900/50 flex flex-col shadow-sm">
+            <div className="border-b border-zinc-800 p-5">
+              <div className="flex items-center gap-2">
+                <HardDrive className="h-5 w-5 text-zinc-400" />
+                <h3 className="font-semibold text-zinc-100">Cấu trúc 5 Lát cắt (Slices)</h3>
+              </div>
+            </div>
+            <div className="flex-1 p-5 space-y-6">
               {[
-                { name: 'Night Slice (Ban đêm)', count: 420, pct: 64, color: '#386A20' },
-                { name: 'Small Object (< 32px)', count: 510, pct: 58, color: '#E65100' },
-                { name: 'Occlusion (Che khuất)', count: 380, pct: 61, color: '#0277BD' },
-                { name: 'Dense Traffic (Ùn ứ)', count: 320, pct: 69, color: '#6A1B9A' },
+                { name: 'Night Slice (Ban đêm)', val: 64.2, count: 420 },
+                { name: 'Small Object (<32px)', val: 58.9, count: 510 },
+                { name: 'Occlusion (Che khuất)', val: 61.5, count: 380 },
+                { name: 'Dense Traffic (Ùn ứ)', val: 69.0, count: 320 },
               ].map((slice, i) => (
-                <Box key={i} sx={{ 
-                  p: 2, 
-                  borderRadius: 6, 
-                  bgcolor: 'rgba(0, 0, 0, 0.03)',
-                  display: 'flex', 
-                  justifyContent: 'space-between', 
-                  alignItems: 'center' 
-                }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: slice.color }} />
-                    <Box>
-                      <Typography variant="body2" sx={{ fontWeight: 700 }}>{slice.name}</Typography>
-                      <Typography variant="caption" sx={{ color: 'text.secondary' }}>{slice.count} ảnh trong pool</Typography>
-                    </Box>
-                  </Box>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: slice.color }}>
-                    {slice.pct}% mAP
-                  </Typography>
-                </Box>
+                <div key={i}>
+                  <div className="mb-2 flex items-center justify-between text-sm">
+                    <span className="font-medium text-zinc-300">{slice.name}</span>
+                    <span className="text-zinc-500">{slice.count} ảnh • <span className="text-emerald-500 font-medium">{slice.val}%</span></span>
+                  </div>
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-800">
+                    <div 
+                      className="h-full bg-zinc-400 rounded-full transition-all duration-500" 
+                      style={{ width: `${slice.val}%` }} 
+                    />
+                  </div>
+                </div>
               ))}
-            </Stack>
-          </Paper>
-        </Grid>
+            </div>
+          </div>
 
-      </Grid>
-
-    </Box>
+          {/* Quick Actions & Controls */}
+          <div className="lg:col-span-3 rounded-xl border border-zinc-800 bg-zinc-900/50 flex flex-col shadow-sm">
+            <div className="border-b border-zinc-800 p-5">
+              <div className="flex items-center gap-2">
+                <Settings2 className="h-5 w-5 text-zinc-400" />
+                <h3 className="font-semibold text-zinc-100">Bảng điều khiển</h3>
+              </div>
+            </div>
+            <div className="p-5 flex-1 flex flex-col gap-4">
+              <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-8 w-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500">
+                    <BarChart3 className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <div className="font-medium text-zinc-200 text-sm">pHash Deduplication</div>
+                    <div className="text-xs text-zinc-500 mt-0.5">Lọc trùng lặp ảnh thô</div>
+                  </div>
+                </div>
+              </div>
+              <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                    <Zap className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <div className="font-medium text-zinc-200 text-sm">Active Mining</div>
+                    <div className="text-xs text-zinc-500 mt-0.5">Sẵn sàng 1,840 ảnh pool</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </main>
+    </div>
   );
 }
