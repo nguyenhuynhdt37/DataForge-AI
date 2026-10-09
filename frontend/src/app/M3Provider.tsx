@@ -28,7 +28,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { usePathname, useRouter } from 'next/navigation';
 
-// Bảng màu M3 Baseline chuẩn của Google (Soft Indigo/Tonal)
 const m3Theme = createTheme({
   cssVariables: true,
   palette: {
@@ -70,11 +69,11 @@ const m3Theme = createTheme({
   components: {
     MuiButton: {
       defaultProps: {
-        disableElevation: true, // M3 Buttons do not have drop shadows by default
+        disableElevation: true,
       },
       styleOverrides: {
         root: {
-          borderRadius: 100, // Fully rounded
+          borderRadius: 100,
           padding: '10px 24px',
         }
       }
@@ -82,9 +81,9 @@ const m3Theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 12, // M3 Medium Shape
-          backgroundColor: '#F3EDF7', // Surface Container
-          boxShadow: 'none', // Use Tonal Surface instead of shadow
+          borderRadius: 12,
+          backgroundColor: '#F3EDF7',
+          boxShadow: 'none',
           border: '1px solid transparent',
         }
       }
@@ -95,9 +94,9 @@ const m3Theme = createTheme({
       },
       styleOverrides: {
         root: {
-          backgroundColor: '#FEF7FF', // Match default surface
+          backgroundColor: '#FEF7FF',
           color: '#1D1B20',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.12)', // Subtle outline
+          borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
         }
       }
     },
@@ -131,7 +130,6 @@ export default function M3Provider({ children }: { children: React.ReactNode }) 
       <CssBaseline />
       <Box sx={{ display: 'flex' }}>
         
-        {/* App Bar */}
         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
           <Toolbar>
             <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
@@ -149,7 +147,6 @@ export default function M3Provider({ children }: { children: React.ReactNode }) 
           </Toolbar>
         </AppBar>
 
-        {/* Navigation Drawer */}
         <Drawer
           variant="permanent"
           sx={{
@@ -173,7 +170,7 @@ export default function M3Provider({ children }: { children: React.ReactNode }) 
                       onClick={() => router.push(route.path)}
                       selected={isActive}
                       sx={{
-                        borderRadius: 100, // M3 completely rounded active state
+                        borderRadius: 100,
                         px: 3,
                         py: 1.25,
                         '&.Mui-selected': {
@@ -190,11 +187,13 @@ export default function M3Provider({ children }: { children: React.ReactNode }) 
                         {route.icon}
                       </ListItemIcon>
                       <ListItemText 
-                        primary={route.text} 
-                        primaryTypographyProps={{ 
-                          fontWeight: isActive ? 600 : 500,
-                          color: isActive ? 'primary.dark' : 'text.secondary'
-                        }} 
+                        primary={route.text}
+                        sx={{
+                          '& .MuiListItemText-primary': {
+                            fontWeight: isActive ? 600 : 500,
+                            color: isActive ? 'primary.dark' : 'text.secondary',
+                          }
+                        }}
                       />
                     </ListItemButton>
                   </ListItem>
@@ -204,7 +203,6 @@ export default function M3Provider({ children }: { children: React.ReactNode }) 
           </Box>
         </Drawer>
 
-        {/* Main Content Area */}
         <Box component="main" sx={{ flexGrow: 1, p: 4, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
           <Toolbar />
           {children}
