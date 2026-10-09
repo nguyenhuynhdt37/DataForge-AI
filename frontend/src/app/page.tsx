@@ -6,12 +6,12 @@ import {
   Typography, 
   Card, 
   CardContent, 
-  Grid,
-  Button,
-  LinearProgress,
-  Paper,
-  Stack,
-  Fab
+  Grid, 
+  Button, 
+  LinearProgress, 
+  Paper, 
+  Stack, 
+  Fab 
 } from '@mui/material';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -38,7 +38,7 @@ export default function OverviewDashboard() {
         </Button>
       </Box>
 
-      {/* Metrics Row (Tonal Cards instead of Elevation) */}
+      {/* Metrics Row (Tonal Cards) */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         {[
           { icon: <TrendingUpIcon color="primary" />, title: 'Độ chính xác (mAP)', value: '78.4%', label: '+14.2% so với V0' },
@@ -48,7 +48,7 @@ export default function OverviewDashboard() {
           <Grid size={{ xs: 12, md: 4 }} key={i}>
             <Card sx={{ bgcolor: 'background.paper', p: 1 }}>
               <CardContent>
-                <Stack direction="row"  spacing={1.5} sx={{ mb: 2, alignItems: "center" }}>
+                <Stack direction="row" spacing={1.5} sx={{ mb: 2, alignItems: 'center' }}>
                   <Box sx={{ 
                     bgcolor: 'primary.light', 
                     borderRadius: 2, 
@@ -58,7 +58,7 @@ export default function OverviewDashboard() {
                   }}>
                     {metric.icon}
                   </Box>
-                  <Typography variant="body1" fontWeight={500} color="text.primary">
+                  <Typography variant="body1" sx={{ fontWeight: 500, color: 'text.primary' }}>
                     {metric.title}
                   </Typography>
                 </Stack>
@@ -97,7 +97,9 @@ export default function OverviewDashboard() {
               ].map((slice, i) => (
                 <Box key={i}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                    <Typography variant="body2" fontWeight={500} color="text.primary">{slice.label}</Typography>
+                    <Typography variant="body2" sx={{ fontWeight: 500, color: 'text.primary' }}>
+                      {slice.label}
+                    </Typography>
                     <Typography variant="body2" color="text.secondary">{slice.count} mẫu</Typography>
                   </Box>
                   <LinearProgress 
