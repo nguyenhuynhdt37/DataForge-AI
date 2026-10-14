@@ -1,8 +1,8 @@
-# 🚗 GreenSM MLOps — Active Learning & Data Engine Platform
+# ⚡ DataForge AI — MLOps Active Learning & Data Engine Platform
 
 <div align="center">
 
-![GreenSM Banner](https://img.shields.io/badge/GreenSM-Hackathon-059669?style=for-the-badge&logo=fastapi&logoColor=white)
+![DataForge AI](https://img.shields.io/badge/DataForge_AI-Platform-059669?style=for-the-badge&logo=fastapi&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-14_App_Router-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16_Async-336791?style=for-the-badge&logo=postgresql&logoColor=white)
@@ -11,7 +11,7 @@
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 <p align="center">
-  <b>Nền tảng MLOps Data Engine khép kín & Vòng lặp Active Learning (HITL) phục vụ bài toán Thị giác máy tính và Xe tự hành thông minh cho GreenSM.</b>
+  <b>DataForge AI — Nền tảng MLOps Data Engine khép kín & Vòng lặp Active Learning (HITL) phục vụ bài toán Thị giác máy tính và Xe tự hành thông minh.</b>
 </p>
 
 </div>
@@ -163,7 +163,7 @@ pnpm dev
 ## 📂 Cấu trúc thư mục (Directory Structure)
 
 ```text
-project-hackathon-greenSM/
+DataForge-AI/
 ├── backend/                  # FastAPI Application
 │   ├── app/
 │   │   ├── core/             # Database, Config, MinIO, CVAT client, Security
