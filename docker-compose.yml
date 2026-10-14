@@ -1,0 +1,178 @@
+services:
+  # ==========================================
+  # 1. Cơ sở dữ liệu PostgreSQL (Lưu trữ Metadata & Auth)
+  # ==========================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: greensm_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: greensm_admin
+      POSTGRES_PASSWORD: SecretPassword2026!
+      POSTGRES_DB: greensm_mlops
+    ports:
+      # Mở port trực tiếp ra máy host để dev có thể kết nối bằng DBeaver/TablePlus/script test ngoài host
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U greensm_admin -d greensm_mlops"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+    networks:
+      - greensm_net
+
+  # ==========================================
+  # 2. Redis Caching & Token Session
+  # ==========================================
+  redis:
+    image: redis:7-alpine
+    container_name: greensm_redis
+    restart: unless-stopped
+    ports:
+      # Mở port trực tiếp ra máy host để dev kiểm tra cache/session qua redis-cli hoặc Redis Insight
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+    networks:
+      - greensm_net
+
+  # ==========================================
+  # 3. Dịch vụ Lưu trữ Hình ảnh & Dữ liệu (MinIO S3 Storage)
+  # ==========================================
+  minio:
+    image: coollabsio/minio:latest
+    container_name: greensm_minio
+
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minio_admin
+      MINIO_ROOT_PASSWORD: SecretPassword2026!
+    ports:
+      - "9000:9000"   # S3 API Endpoint cho ứng dụng
+      - "9001:9001"   # Web Console UI trực quan cho Dev
+    volumes:
+      - minio_data:/data
+    networks:
+      - greensm_net
+
+
+  # ==========================================
+  # 4. Backend FastAPI (Dev Mode + Hot-Reload)
+  # ==========================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: greensm_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      # Bind mount toàn bộ mã nguồn backend để sửa code là nhận ngay (Hot-Reload)
+      - ./backend:/app
+      # Anonymous volume bảo vệ venv container không bị venv của host Mac ghi đè
+      - /app/.venv
+      # Mount thư mục dữ liệu và mô hình huấn luyện
+      - ./datasets:/datasets
+      - ./runs:/runs
+    env_file:
+      - ./backend/.env
+    environment:
+      # Kết nối nội bộ qua mạng docker
+      - DATABASE_URL=postgresql+asyncpg://greensm_admin:SecretPassword2026!@postgres:5432/greensm_mlops
+      - REDIS_URL=redis://redis:6379/0
+      - FASTAPI_PORT=8000
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minio_admin
+      - MINIO_SECRET_KEY=SecretPassword2026!
+      - MINIO_BUCKET_AVATARS=greensm-avatars
+      - MINIO_PUBLIC_URL=http://localhost:9000
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - ENVIRONMENT=development
+    # Kích hoạt Uvicorn reload khi phát hiện file thay đổi
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/ || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_started
+
+    networks:
+      - greensm_net
+
+  # ==========================================
+  # 5. Frontend Next.js (Dev Mode + Fast Refresh)
+  # ==========================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: dev
+    container_name: greensm_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      # Bind mount mã nguồn frontend để Fast Refresh tức thì
+      - ./frontend:/app
+      # Anonymous volumes bảo vệ node_modules và build cache của container không bị xung đột với host macOS
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      # Kích hoạt polling để phát hiện đổi file tức thì khi bind mount từ macOS sang container Linux
+      - WATCHPACK_POLLING=true
+      - HOSTNAME=0.0.0.0
+      - PORT=3000
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+    command: pnpm dev --hostname 0.0.0.0
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - greensm_net
+
+  # ==========================================
+  # 6. Tiện ích: Web GUI Database Client (Adminer)
+  # ==========================================
+  adminer:
+    image: adminer:latest
+    container_name: greensm_adminer
+    restart: unless-stopped
+    ports:
+      # Truy cập http://localhost:8080 để kiểm tra dữ liệu DB trực quan khi test
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - greensm_net
+
+volumes:
+  pg_data:
+  redis_data:
+  minio_data:
+
+networks:
+  greensm_net:
+    driver: bridge

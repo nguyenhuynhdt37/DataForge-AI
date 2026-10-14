@@ -1,169 +1,424 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { 
-  Activity, 
-  Settings2, 
-  HardDrive, 
-  BarChart3, 
+  ArrowRight, 
+  Layers, 
+  Target, 
   ShieldCheck, 
   Cpu, 
-  Zap,
-  Play
+  FolderKanban, 
+  BarChart3,
+  CheckCircle2,
+  SlidersHorizontal,
+  Compass,
+  Database,
+  ExternalLink,
+  KeyRound
 } from 'lucide-react';
-import { ShinyText } from '@/shared/components/react-bits/ShinyText';
-import { SpotlightCard } from '@/shared/components/react-bits/SpotlightCard';
+import { 
+  SplitText, 
+  BlurText, 
+  SpotlightCard, 
+  Squares,
+  AnimatedContent,
+  DecryptedText
+} from '@/shared/components/react-bits';
+import { AppHeader } from '@/shared/components/layout';
+import { OnboardingModal, useOnboarding } from '@/modules/onboarding';
 
-export default function TailwindDashboard() {
+export default function LandingOverviewPage() {
+  const {
+    isOpen,
+    openModal,
+    handleDismiss,
+    currentUser,
+    isAlreadyConnected,
+  } = useOnboarding();
+
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-[#F8F7F2] text-[#303A3B] flex flex-col relative overflow-hidden font-sans selection:bg-[#DCEBE0]">
       
-      {/* Background Animated Retro Grid / Radial Fade (Inspired by React Bits) */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(16,185,129,0.1),transparent_70%)] pointer-events-none" />
+      {/* React Bits Squares Subtle Canvas Background */}
+      <Squares 
+        direction="diagonal" 
+        speed={0.2} 
+        squareSize={56} 
+        borderColor="#ECEAE2" 
+        hoverFillColor="#E2EFE5" 
+      />
 
-      {/* Top Navbar */}
-      <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-zinc-800/80 bg-zinc-950/60 px-6 backdrop-blur-xl">
-        <div className="flex items-center gap-3">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-            <Zap className="h-4 w-4 text-zinc-950" />
-          </div>
-          <ShinyText text="GreenSM MLOps" className="text-sm font-semibold tracking-tight" />
-        </div>
-        <nav className="flex items-center gap-6 text-sm font-medium text-zinc-400">
-          <a href="#" className="text-emerald-500">Overview</a>
-          <a href="#" className="hover:text-zinc-100 transition">Data Lab</a>
-          <a href="#" className="hover:text-zinc-100 transition">Mining</a>
-          <a href="#" className="hover:text-zinc-100 transition">HITL Studio</a>
-          <a href="#" className="hover:text-zinc-100 transition">Reports</a>
-        </nav>
-      </header>
+      {/* 3-Zone Soft Editorial Tech AppHeader */}
+      <AppHeader />
 
-      {/* Main Content */}
-      <main className="relative flex-1 p-6 md:p-8 lg:px-12 max-w-[1400px] mx-auto w-full z-10">
+      {/* Main Content Container */}
+      <main className="relative flex-1 max-w-[1340px] mx-auto w-full px-6 py-12 md:py-16 z-10 space-y-20">
         
-        {/* Page Header */}
-        <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-white">
-              Tổng quan <ShinyText text="Pipeline YOLO11n" />
-            </h1>
-            <p className="text-sm text-zinc-400 mt-2">
-              Hệ thống giám sát hiệu suất nhận diện và tối ưu hoá dữ liệu gán nhãn thời gian thực.
+        {/* ============================================================== */}
+        {/* 1. HERO SECTION: SOFT EDITORIAL HEADLINE                       */}
+        {/* ============================================================== */}
+        <section className="text-center max-w-4xl mx-auto space-y-6 pt-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8F0EA] border border-[#D5E4D8] text-[#303A3B] text-xs font-semibold tracking-wide">
+            <Target className="h-3.5 w-3.5 text-[#5C8564]" />
+            <span>DATA-CENTRIC PLATFORM — CHIẾN DỊCH GÁN NHÃN THỊ GIÁC XE ĐIỆN</span>
+          </div>
+
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-[#303A3B] leading-[1.15] font-editorial">
+            <SplitText 
+              text="Kiến tạo Dữ liệu Tinh tuyển," 
+              className="block"
+              delay={25}
+            />
+            <span className="text-[#4E7756] block mt-1">
+              <SplitText 
+                text="Cho Mô hình AI Bền vững." 
+                delay={35}
+              />
+            </span>
+          </h1>
+
+          <div className="max-w-2xl mx-auto text-base text-[#6B7677] leading-relaxed">
+            <BlurText 
+              text="Hợp nhất Active Learning, kiểm định Human-in-the-Loop và tối ưu hóa suy luận OpenVINO INT8 thành một luồng công việc liền mạch, nhân văn và chuẩn mực."
+              delay={25}
+            />
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2.5 rounded-xl bg-[#B7CDBB] hover:bg-[#a6c2ac] px-6 py-3.5 text-sm font-bold text-[#303A3B] shadow-soft hover:shadow-soft-lg active:scale-[0.98] transition-all"
+            >
+              <span>Khám phá Dự án Workspace</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+
+            <Link
+              href="/active-mining"
+              className="inline-flex items-center gap-2 rounded-xl bg-white hover:bg-[#F2F1EB] border border-[#E5E3DC] px-5 py-3.5 text-sm font-semibold text-[#303A3B] shadow-soft-sm transition-all"
+            >
+              <SlidersHorizontal className="h-4 w-4 text-[#6B7677]" />
+              <span>Trực quan hóa Active Mining</span>
+            </Link>
+          </div>
+        </section>
+
+        {/* ============================================================== */}
+        {/* 1.5. FIRST-LOGIN ONBOARDING & CVAT HOST SETUP SHOWCASE         */}
+        {/* ============================================================== */}
+        <AnimatedContent distance={16} duration={0.3} className="max-w-4xl mx-auto w-full">
+          <SpotlightCard 
+            className="bg-[#FAF9F5] border border-[#ECEAE2] p-6 sm:p-8 rounded-3xl shadow-soft flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden" 
+            spotlightColor="rgba(183, 205, 187, 0.28)"
+          >
+            {/* Cột Trái: Thông tin thiết lập ban đầu */}
+            <div className="space-y-3 flex-1 text-left">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E8F0EA] border border-[#CDE0D1] text-[#2D5A34] text-xs font-mono font-bold uppercase tracking-wider">
+                  <Database className="h-3 w-3" />
+                  <span>ONBOARDING & TÍCH HỢP HỆ THỐNG</span>
+                </span>
+                
+                {isAlreadyConnected ? (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#E8F0EA] border border-[#CDE0D1] text-[#2D5A34] text-xs font-mono font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#2D5A34] animate-pulse" />
+                    <span>CVAT: @</span>
+                    <DecryptedText text={currentUser?.cvat_username || 'connected'} speed={35} className="font-bold underline" />
+                    <span className="opacity-75">#{currentUser?.cvat_user_id}</span>
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#FAF2E8] border border-[#EEDFCD] text-[#8C6239] text-xs font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#8C6239] animate-pulse" />
+                    Chưa liên kết kho gán nhãn
+                  </span>
+                )}
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1F2627] font-editorial">
+                {isAlreadyConnected 
+                  ? "Kho Gán nhãn CVAT Host Đang Hoạt Động" 
+                  : "Tùy chọn Khởi tạo Không gian & Kho Gán nhãn CVAT"}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-[#5A6466] leading-relaxed max-w-xl">
+                {isAlreadyConnected 
+                  ? "Tài khoản của bạn đã được kết nối trực tiếp với máy chủ cvat.itup.io.vn. Tác vụ kiểm duyệt và dữ liệu bounding box sẽ được đồng bộ hóa tự động."
+                  : "Liên kết tài khoản dán nhãn tập trung trên máy chủ CVAT (cvat.itup.io.vn) để tải bộ dữ liệu, phân quyền kiểm duyệt và đánh giá chất lượng mô hình YOLO."}
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4 pt-1 text-xs text-[#5A6466] font-medium">
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-[#2D5A34]" />
+                  <span>Xác thực Username/Pass hoặc PAT Token</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-[#2D5A34]" />
+                  <span>Tự động lưu trạng thái vào CSDL</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Cột Phải: Nút mở Modal tương tác */}
+            <div className="flex flex-col sm:flex-row md:flex-col items-stretch gap-2.5 shrink-0 w-full sm:w-auto">
+              <button
+                type="button"
+                onClick={openModal}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#2D5A34] hover:bg-[#234629] text-white text-xs font-bold shadow-soft hover:shadow-soft-lg active:scale-[0.98] transition-all cursor-pointer"
+              >
+                <Database className="w-3.5 h-3.5" />
+                <span>{isAlreadyConnected ? "Quản lý Liên kết CVAT" : "Mở Thiết lập Onboarding"}</span>
+              </button>
+
+              {isAlreadyConnected ? (
+                <a
+                  href="https://cvat.itup.io.vn"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white hover:bg-[#F2EFE9] border border-[#ECEAE2] text-xs font-semibold text-[#1F2627] transition-all"
+                >
+                  <span>Mở cvat.itup.io.vn</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-[#5A6466]" />
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  onClick={openModal}
+                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white hover:bg-[#F2EFE9] border border-[#ECEAE2] text-xs font-semibold text-[#5A6466] hover:text-[#1F2627] transition-all cursor-pointer"
+                >
+                  <KeyRound className="w-3.5 h-3.5 text-[#5A6466]" />
+                  <span>Thử nghiệm Form CVAT</span>
+                </button>
+              )}
+            </div>
+          </SpotlightCard>
+        </AnimatedContent>
+
+        {/* ============================================================== */}
+        {/* 2. PIPELINE WORKFLOW (4 GIAI ĐOẠN KHÉP KÍN)                    */}
+        {/* ============================================================== */}
+        <section className="space-y-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-2 border-b border-[#E5E3DC] pb-4">
+            <div>
+              <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#6B7677]">
+                WORKFLOW KIẾN TRÚC
+              </div>
+              <h2 className="text-2xl font-bold tracking-tight text-[#303A3B] font-editorial mt-1">
+                Chu trình Khép kín Data-Centric MLOps
+              </h2>
+            </div>
+            <p className="text-xs text-[#6B7677] max-w-md">
+              Tối ưu hóa dữ liệu gán nhãn trước khi đưa vào huấn luyện mô hình nhận diện xe điện thông minh.
             </p>
           </div>
-          <button className="group relative inline-flex h-10 items-center justify-center gap-2 overflow-hidden rounded-md bg-emerald-500 px-5 text-sm font-medium text-zinc-950 transition-all hover:bg-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)]">
-            <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]">
-              <div className="relative h-full w-8 bg-white/20" />
-            </div>
-            <Play className="h-4 w-4" />
-            Bắt đầu Pipeline
-          </button>
-        </div>
 
-        {/* 3 Metric Spotlight Cards */}
-        <div className="grid gap-4 md:grid-cols-3 mb-8">
-          <SpotlightCard spotlightColor="rgba(16, 185, 129, 0.15)">
-            <div className="flex items-center justify-between pb-2">
-              <span className="text-sm font-medium text-zinc-400">Độ chính xác mục tiêu</span>
-              <Activity className="h-4 w-4 text-emerald-500" />
-            </div>
-            <div className="text-3xl font-bold tracking-tight text-white mt-1">78.4%</div>
-            <p className="text-xs text-zinc-500 mt-2 flex items-center gap-1">
-              <span className="text-emerald-500 font-medium">+14.2%</span> so với V0 Baseline
-            </p>
-          </SpotlightCard>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* Stage 1 */}
+            <SpotlightCard className="bg-white border border-[#E5E3DC] p-6 rounded-2xl shadow-soft-sm flex flex-col justify-between h-56" spotlightColor="rgba(183, 205, 187, 0.25)">
+              <div>
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-xs font-mono font-bold text-[#6B7677]">01 / GIAI ĐOẠN</span>
+                  <div className="h-8 w-8 rounded-lg bg-[#EBF3ED] flex items-center justify-center text-[#4E7756]">
+                    <Layers className="h-4 w-4" />
+                  </div>
+                </div>
+                <h3 className="text-base font-bold text-[#303A3B] font-editorial">
+                  Data Curation & Lab
+                </h3>
+                <p className="text-xs text-[#6B7677] mt-2 leading-relaxed">
+                  Thu thập khung hình camera hành trình xe điện, kiểm tra phân phối nhãn và lọc trùng lặp.
+                </p>
+              </div>
+              <Link href="/data-lab" className="text-xs font-bold text-[#4E7756] hover:underline flex items-center gap-1">
+                Xem Data Lab <ArrowRight className="h-3 w-3" />
+              </Link>
+            </SpotlightCard>
 
-          <SpotlightCard spotlightColor="rgba(59, 130, 246, 0.15)">
-            <div className="flex items-center justify-between pb-2">
-              <span className="text-sm font-medium text-zinc-400">IoU Đồng thuận Tự động</span>
-              <ShieldCheck className="h-4 w-4 text-blue-500" />
-            </div>
-            <div className="text-3xl font-bold tracking-tight text-white mt-1">84.2%</div>
-            <p className="text-xs text-zinc-500 mt-2 flex items-center gap-1">
-              <span className="text-blue-500 font-medium">Bởi RT-DETR</span> ở Tier 1
-            </p>
-          </SpotlightCard>
+            {/* Stage 2 */}
+            <SpotlightCard className="bg-white border border-[#E5E3DC] p-6 rounded-2xl shadow-soft-sm flex flex-col justify-between h-56" spotlightColor="rgba(198, 217, 232, 0.3)">
+              <div>
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-xs font-mono font-bold text-[#6B7677]">02 / GIAI ĐOẠN</span>
+                  <div className="h-8 w-8 rounded-lg bg-[#E6F0F7] flex items-center justify-center text-[#3D6B8C]">
+                    <Target className="h-4 w-4" />
+                  </div>
+                </div>
+                <h3 className="text-base font-bold text-[#303A3B] font-editorial">
+                  Active Mining k-Center
+                </h3>
+                <p className="text-xs text-[#6B7677] mt-2 leading-relaxed">
+                  Thuật toán trích xuất các mẫu ca khó (hard slices) dựa trên 2D PCA Embeddings và độ bất định.
+                </p>
+              </div>
+              <Link href="/active-mining" className="text-xs font-bold text-[#3D6B8C] hover:underline flex items-center gap-1">
+                Mở Visualizer <ArrowRight className="h-3 w-3" />
+              </Link>
+            </SpotlightCard>
 
-          <SpotlightCard spotlightColor="rgba(168, 85, 247, 0.15)">
-            <div className="flex items-center justify-between pb-2">
-              <span className="text-sm font-medium text-zinc-400">Tốc độ OpenVINO Edge</span>
-              <Cpu className="h-4 w-4 text-purple-500" />
-            </div>
-            <div className="text-3xl font-bold tracking-tight text-white mt-1">21.4 FPS</div>
-            <p className="text-xs text-zinc-500 mt-2 flex items-center gap-1">
-              <span className="text-purple-500 font-medium">4.2ms</span> trên CPU INT8
-            </p>
-          </SpotlightCard>
-        </div>
+            {/* Stage 3 */}
+            <SpotlightCard className="bg-white border border-[#E5E3DC] p-6 rounded-2xl shadow-soft-sm flex flex-col justify-between h-56" spotlightColor="rgba(220, 214, 232, 0.3)">
+              <div>
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-xs font-mono font-bold text-[#6B7677]">03 / GIAI ĐOẠN</span>
+                  <div className="h-8 w-8 rounded-lg bg-[#EFEBF5] flex items-center justify-center text-[#5C4D78]">
+                    <ShieldCheck className="h-4 w-4" />
+                  </div>
+                </div>
+                <h3 className="text-base font-bold text-[#303A3B] font-editorial">
+                  HITL Consensus Studio
+                </h3>
+                <p className="text-xs text-[#6B7677] mt-2 leading-relaxed">
+                  Quy trình gán nhãn chuyên nghiệp với Reviewer & Annotator độc lập, kiểm tra IoU đồng thuận.
+                </p>
+              </div>
+              <Link href="/hitl-studio" className="text-xs font-bold text-[#5C4D78] hover:underline flex items-center gap-1">
+                Vào Studio <ArrowRight className="h-3 w-3" />
+              </Link>
+            </SpotlightCard>
 
-        {/* 2 Cols Content with Spotlight Borders */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+            {/* Stage 4 */}
+            <SpotlightCard className="bg-white border border-[#E5E3DC] p-6 rounded-2xl shadow-soft-sm flex flex-col justify-between h-56" spotlightColor="rgba(220, 235, 224, 0.3)">
+              <div>
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-xs font-mono font-bold text-[#6B7677]">04 / GIAI ĐOẠN</span>
+                  <div className="h-8 w-8 rounded-lg bg-[#EAF5EC] flex items-center justify-center text-[#3D7847]">
+                    <Cpu className="h-4 w-4" />
+                  </div>
+                </div>
+                <h3 className="text-base font-bold text-[#303A3B] font-editorial">
+                  YOLO11n Edge Benchmark
+                </h3>
+                <p className="text-xs text-[#6B7677] mt-2 leading-relaxed">
+                  Đánh giá độ trễ suy luận OpenVINO INT8 4.2ms và độ chính xác mAP@50 trước khi triển khai đội xe.
+                </p>
+              </div>
+              <Link href="/benchmark" className="text-xs font-bold text-[#3D7847] hover:underline flex items-center gap-1">
+                Xem Báo cáo <ArrowRight className="h-3 w-3" />
+              </Link>
+            </SpotlightCard>
+          </div>
+        </section>
+
+        {/* ============================================================== */}
+        {/* 3. BENTO SHOWCASE: LIVE METRICS & COMMERCIAL PREVIEW           */}
+        {/* ============================================================== */}
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           
-          <SpotlightCard className="lg:col-span-4 p-0 flex flex-col" spotlightColor="rgba(255,255,255,0.05)">
-            <div className="border-b border-zinc-800/60 p-5">
-              <div className="flex items-center gap-2">
-                <HardDrive className="h-5 w-5 text-zinc-400" />
-                <h3 className="font-semibold text-zinc-100">Cấu trúc 5 Lát cắt (Slices)</h3>
+          {/* Card Lớn: Ảnh xe điện ban ngày */}
+          <SpotlightCard className="lg:col-span-7 bg-white border border-[#E5E3DC] p-0 rounded-2xl shadow-soft overflow-hidden flex flex-col justify-between" spotlightColor="rgba(183, 205, 187, 0.2)">
+            <div className="relative h-64 md:h-80 w-full overflow-hidden bg-slate-100">
+              <Image
+                src="/images/greensm-daylight.jpg"
+                alt="Telemetry Camera Feed"
+                fill
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#303A3B]/70 via-transparent to-transparent" />
+              <div className="absolute top-4 left-4 px-3 py-1.5 rounded-lg bg-white/95 backdrop-blur-md border border-[#E5E3DC] text-xs font-mono font-semibold text-[#303A3B]">
+                TELEMETRY FEED — CAMERA HÀNH TRÌNH ĐÔ THỊ
+              </div>
+              <div className="absolute bottom-4 left-4 right-4 text-white drop-shadow flex justify-between items-end">
+                <div>
+                  <div className="text-xs uppercase font-mono tracking-wider opacity-80">Môi trường thực địa</div>
+                  <div className="text-lg font-bold font-editorial">Hành lang Đô thị Thông minh</div>
+                </div>
+                <span className="px-2.5 py-1 rounded bg-[#B7CDBB] text-[#303A3B] font-bold text-xs">
+                  60 FPS LIVE
+                </span>
               </div>
             </div>
-            <div className="flex-1 p-5 space-y-6">
-              {[
-                { name: 'Night Slice (Ban đêm)', val: 64.2, count: 420 },
-                { name: 'Small Object (<32px)', val: 58.9, count: 510 },
-                { name: 'Occlusion (Che khuất)', val: 61.5, count: 380 },
-                { name: 'Dense Traffic (Ùn ứ)', val: 69.0, count: 320 },
-              ].map((slice, i) => (
-                <div key={i}>
-                  <div className="mb-2 flex items-center justify-between text-sm">
-                    <span className="font-medium text-zinc-300">{slice.name}</span>
-                    <span className="text-zinc-500">{slice.count} ảnh • <span className="text-emerald-500 font-medium">{slice.val}%</span></span>
-                  </div>
-                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-800/80">
-                    <div 
-                      className="h-full bg-zinc-400 rounded-full transition-all duration-1000" 
-                      style={{ width: `${slice.val}%` }} 
-                    />
-                  </div>
-                </div>
-              ))}
+            <div className="p-6 bg-white border-t border-[#E5E3DC]">
+              <div className="text-xs font-mono font-bold text-[#4E7756] uppercase tracking-wider mb-1">
+                TRIẾT LÝ SẢN PHẨM
+              </div>
+              <h4 className="text-lg font-bold text-[#303A3B] font-editorial">
+                Chất lượng Dữ liệu quan trọng hơn Số lượng Dữ liệu
+              </h4>
+              <p className="text-xs text-[#6B7677] mt-2 leading-relaxed">
+                Thay vì gán nhãn hàng trăm nghìn ảnh vô nghĩa, DataForge AI tập trung phát hiện các phân đoạn bất định và ca khó hiểm hóc để đào tạo mô hình đạt độ nhạy bén cao nhất trên từng km đường phố Việt Nam.
+              </p>
             </div>
           </SpotlightCard>
 
-          <SpotlightCard className="lg:col-span-3 p-0 flex flex-col" spotlightColor="rgba(255,255,255,0.05)">
-            <div className="border-b border-zinc-800/60 p-5">
-              <div className="flex items-center gap-2">
-                <Settings2 className="h-5 w-5 text-zinc-400" />
-                <h3 className="font-semibold text-zinc-100">Bảng điều khiển</h3>
-              </div>
-            </div>
-            <div className="p-5 flex-1 flex flex-col gap-4">
-              <div className="group rounded-lg border border-zinc-800/60 bg-zinc-950/50 p-4 hover:border-zinc-700 transition-colors cursor-pointer">
-                <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform">
-                    <BarChart3 className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <div className="font-medium text-zinc-200 text-sm">pHash Deduplication</div>
-                    <div className="text-xs text-zinc-500 mt-1">Lọc trùng lặp ảnh thô</div>
-                  </div>
+          {/* Cột Nhỏ: 3 Chỉ số quan trọng */}
+          <div className="lg:col-span-5 flex flex-col gap-5 justify-between">
+            
+            <SpotlightCard className="bg-white border border-[#E5E3DC] p-6 rounded-2xl shadow-soft-sm flex-1 flex flex-col justify-center" spotlightColor="rgba(198, 217, 232, 0.3)">
+              <div className="flex justify-between items-start">
+                <div>
+                  <div className="text-xs font-mono font-semibold text-[#6B7677] uppercase">Tốc độ suy luận Edge</div>
+                  <div className="text-3xl font-extrabold text-[#303A3B] font-editorial mt-1">4.2 ms</div>
+                  <div className="text-xs text-[#4E7756] font-medium mt-1">Chuẩn INT8 OpenVINO trên CPU nhúng</div>
+                </div>
+                <div className="p-2.5 rounded-xl bg-[#E6F0F7] text-[#3D6B8C]">
+                  <Cpu className="h-5 w-5" />
                 </div>
               </div>
-              <div className="group rounded-lg border border-zinc-800/60 bg-zinc-950/50 p-4 hover:border-zinc-700 transition-colors cursor-pointer">
-                <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform">
-                    <Zap className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <div className="font-medium text-zinc-200 text-sm">Active Mining</div>
-                    <div className="text-xs text-zinc-500 mt-1">Sẵn sàng 1,840 ảnh pool</div>
-                  </div>
+            </SpotlightCard>
+
+            <SpotlightCard className="bg-white border border-[#E5E3DC] p-6 rounded-2xl shadow-soft-sm flex-1 flex flex-col justify-center" spotlightColor="rgba(183, 205, 187, 0.3)">
+              <div className="flex justify-between items-start">
+                <div>
+                  <div className="text-xs font-mono font-semibold text-[#6B7677] uppercase">Độ đồng thuận QA/QC</div>
+                  <div className="text-3xl font-extrabold text-[#303A3B] font-editorial mt-1">84.2%</div>
+                  <div className="text-xs text-[#4E7756] font-medium mt-1">IoU Bounding Box giữa 2 cấp kiểm duyệt</div>
+                </div>
+                <div className="p-2.5 rounded-xl bg-[#EBF3ED] text-[#4E7756]">
+                  <CheckCircle2 className="h-5 w-5" />
                 </div>
               </div>
-            </div>
-          </SpotlightCard>
-          
-        </div>
+            </SpotlightCard>
+
+            <SpotlightCard className="bg-white border border-[#E5E3DC] p-6 rounded-2xl shadow-soft-sm flex-1 flex flex-col justify-center" spotlightColor="rgba(220, 214, 232, 0.3)">
+              <div className="flex justify-between items-start">
+                <div>
+                  <div className="text-xs font-mono font-semibold text-[#6B7677] uppercase">Khung hình Đã tinh tuyển</div>
+                  <div className="text-3xl font-extrabold text-[#303A3B] font-editorial mt-1">1.48M</div>
+                  <div className="text-xs text-[#6B7677] font-medium mt-1">Tiết kiệm 65% chi phí gán nhãn thủ công</div>
+                </div>
+                <div className="p-2.5 rounded-xl bg-[#EFEBF5] text-[#5C4D78]">
+                  <BarChart3 className="h-5 w-5" />
+                </div>
+              </div>
+            </SpotlightCard>
+
+          </div>
+        </section>
+
       </main>
+
+      {/* Footer Soft Editorial */}
+      <footer className="border-t border-[#E5E3DC] bg-white py-10 px-6 md:px-12 mt-12">
+        <div className="max-w-[1340px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#6B7677]">
+          <div className="flex items-center gap-3">
+            <div className="relative h-6 w-6 rounded-md overflow-hidden border border-[#E5E3DC]">
+              <Image src="/logo.png" alt="DataForge Logo" fill className="object-contain" />
+            </div>
+            <span className="font-bold text-[#303A3B]">DataForge AI Platform</span>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <Link href="/projects" className="hover:text-[#303A3B] transition-colors">Workspace</Link>
+            <Link href="/active-mining" className="hover:text-[#303A3B] transition-colors">Active Mining</Link>
+            <Link href="/hitl-studio" className="hover:text-[#303A3B] transition-colors">HITL Studio</Link>
+            <Link href="/login" className="hover:text-[#303A3B] transition-colors">Đăng nhập</Link>
+          </div>
+
+          <div>
+            © 2026 DataForge AI
+          </div>
+        </div>
+      </footer>
+
+      {/* Modal Onboarding & Kết Nối CVAT Host từ Domain Module onboarding */}
+      <OnboardingModal
+        isOpen={isOpen}
+        onClose={handleDismiss}
+        currentUser={currentUser}
+        isDark={false}
+      />
+
     </div>
   );
 }

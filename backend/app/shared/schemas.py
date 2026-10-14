@@ -8,6 +8,8 @@ class ApiResponse(BaseModel, Generic[T]):
     success: bool = True
     message: str = "Thao tác thành công"
     data: Optional[T] = None
+    error_code: Optional[str] = None
+    detail: Optional[Any] = None
     timestamp: datetime = Field(default_factory=datetime.utcnow)
 
 class PaginatedData(BaseModel, Generic[T]):
